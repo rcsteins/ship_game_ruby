@@ -1,0 +1,18 @@
+require 'ship'
+class ShipBuilder
+  attr_accessor :images
+  
+  def initialize window
+    @window = window
+    @images = {}
+    @image_def = 
+  end
+  
+  def new_ship_def
+    
+    return Ship.new(@window,200,200,0)                                                
+  end
+  
+  
+  
+end
