@@ -7,22 +7,26 @@ require 'gosu'
 require 'coors.rb'
 require 'ship.rb'
 require 'ship_builder.rb'
+require 'debug_string'
 
 class GameWindow < Gosu::Window
   
   def initialize
-    super(1200,700,false,8)
+    super(1200,700,false,16.66667)
     self.caption = "Update/Draw Demo"
     
     # we load the font once during initialize, much faster than
     # loading the font before every draw
     @font = Gosu::Font.new(self,Gosu::default_font_name,20)
     @counter = 0
+    @debug_strings =DebugStrings.new
     @image1 = Gosu::Image.new(self,"media/testShip2.bmp",false)
     @builder = ShipBuilder.new self
-    @ships = []
+    @ships = {}
     
-    @ships << @builder.new_ship_def
+    @ships[:player] = @builder.new_ship_def
+    require 'ruby-debug';debugger
+    @ships
     b = Coors.new(0,0)
     @this_frame =50
     @last_frame =50
@@ -32,7 +36,7 @@ class GameWindow < Gosu::Window
   def update
     calculate_delta
     @counter += 1
-    @ships[0].update @delta;
+    @ships.each {|key,ship|ship.update @delta;}
     
   end
   
@@ -48,8 +52,8 @@ class GameWindow < Gosu::Window
   
   def draw
     #@font.draw(@counter,0,0,1)
-    @font.draw(@delta,0,0,1)
-    @ships[0].draw
+    
+    @ships.each {|k,s|s.draw }
  
   end
   
@@ -60,7 +64,7 @@ class GameWindow < Gosu::Window
     end
     
     if id == Gosu::KbQ
-     @ships[0].loc.set(400,400)
+     @ships[:player].loc.set(400,400)
     end 
   end
   

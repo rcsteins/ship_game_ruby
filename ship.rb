@@ -1,7 +1,7 @@
 require 'gosu'
 
 class Ship 
-  attr_accessor :image, :angle, :loc
+  attr_accessor :image, :angle, :loc, :db_str
   @@defTurn=300
   
   def initialize window, x, y, ang, img

@@ -6,8 +6,8 @@ class Coors
   end
   
   def set x,y
-    @x=x
-    @y=y
+    @x=x*1.0001
+    @y=y*1.0001
   end
   
   def ext amt

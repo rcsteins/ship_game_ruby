@@ -1,16 +1,16 @@
 require 'gosu'
 
 class Ship 
-  attr_accessor :image, :angle, :loc
+  attr_accessor :image, :angle, :loc, :db_str
   @@defTurn=300
   
-  def initialize window, x, y, ang
+  def initialize window, x, y, ang, img
     @loc = Coors.new(x,y)
     @vel = Coors.new(0,0)
     @angle =0
     @z = 1
     @window = window
-    @image = Gosu::Image.new(window,"media/testShip2.bmp",true)
+    @image = img
     @speed=500
     @delta_ref = 0
   end 

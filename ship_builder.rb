@@ -13,6 +13,10 @@ class ShipBuilder
     return Ship.new(@window,200,200,0,@image_def)                                                
   end
   
+  def new_ship image_key
+    return Ship.new(@window,200,200,0,image_key)
+  end
+  
   
   
 end
