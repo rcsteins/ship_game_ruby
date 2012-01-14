@@ -21,13 +21,14 @@ class GameWindow < Gosu::Window
     @counter = 0
     @debug_strings =DebugStrings.new
     @image1 = Gosu::Image.new(self,"media/testShip2.bmp",false)
+    @image2 = Gosu::Image.new(self,"media/testShip3.bmp",false)
     @builder = ShipBuilder.new self
     @ships = {}
     
-    @ships[:player] = @builder.new_ship_def
-    require 'ruby-debug';debugger
-    @ships
-    b = Coors.new(0,0)
+    @ships[:player] = @builder.new_ship_player
+    @ships[:test_2] = @builder.new_ship @image2
+    #require 'ruby-debug';debugger
+    
     @this_frame =50
     @last_frame =50
     @delta = 0.0

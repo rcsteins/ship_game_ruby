@@ -4,7 +4,7 @@ class Ship
   attr_accessor :image, :angle, :loc, :db_str
   @@defTurn=300
   
-  def initialize window, x, y, ang, img
+  def initialize window, x, y, ang, img, input_symbol
     @loc = Coors.new(x,y)
     @vel = Coors.new(0,0)
     @angle =0
@@ -13,6 +13,7 @@ class Ship
     @image = img
     @speed=500
     @delta_ref = 0
+    @input_symbol = input_symbol
   end 
   
   def draw
@@ -21,11 +22,11 @@ class Ship
   
   def update delta
     @delta_ref = delta
-    handle_input
+    self.send @input_symbol
     update_position
   end
   
-  def handle_input
+  def player_input
     if @window.button_down?(Gosu::KbA) or @window.button_down?(Gosu::GpLeft)
       move_left
     end
@@ -38,6 +39,10 @@ class Ship
     if @window.button_down?(Gosu::KbS) or @window.button_down?(Gosu::GpDown)
       move_down
     end
+  end
+  
+  def none
+    
   end
   
   def polled_key_s
