@@ -19,7 +19,7 @@ class GameWindow < Gosu::Window
     # loading the font before every draw
     @font = Gosu::Font.new(self,Gosu::default_font_name,20)
     @counter = 0
-    @debug_strings =DebugStrings.new
+    #@debug_strings =DebugStrings.new
     @image1 = Gosu::Image.new(self,"media/testShip2.bmp",false)
     @image2 = Gosu::Image.new(self,"media/testShip3.bmp",false)
     @builder = ShipBuilder.new self
