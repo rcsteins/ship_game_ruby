@@ -1,0 +1,5 @@
+This project requires Gosu
+  gem install gosu
+
+To run - 
+  ruby gosu_test.rb
