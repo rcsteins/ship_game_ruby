@@ -16,6 +16,8 @@ class GameWindow < Gosu::Window
     super(1200,700,false,8)
     self.caption = "Ruby Ship Game"
     
+    # we load the font once during initialize, much faster than
+    # loading the font before every draw
     @font = Gosu::Font.new(self,Gosu::default_font_name,20)
     @counter = 0
     @imager = ImagePreparer.new(self)
@@ -61,7 +63,7 @@ class GameWindow < Gosu::Window
       @ships[:player].forward
     end
     
-    if self.button_down?(Gosu::KbS) or self.button_down?(Gosu::GpDown)
+    if self.button_down?(Gosu::KbC) or self.button_down?(Gosu::GpDown)
       @ships[:player].breaks
     end
   end
