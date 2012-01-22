@@ -1,6 +1,7 @@
 require 'gosu'
 require 'angle_reader'
 require 'ship_engine'
+require 'shared_num'
 
 class Ship 
   attr_accessor :image, :angle, :loc, :db_str ,:delta_ref, :vel 
@@ -9,29 +10,29 @@ class Ship
   def initialize (window, x, y, ang, img)
     @loc = Coors.new(x,y)
     @vel = Coors.new(0,0)
-    @angle =ang
+    @angle = SharedNum.new ang
     @z = 1
     @self = window
     @image = img
-    @delta_ref = 0 #global var for ship object to share delta among update functions
+    @delta_ref = SharedNum.new #global var for ship object to share delta among update functions
     @angle_reader = nil
-    @my_engine = ShipEngine.new self ,:turn => 155
+    @my_engine = ShipEngine.new @angle, @delta_ref,@vel, :turn => 155
     @t_1 = 1.0
     #require 'ruby-debug';debugger; puts'a'
   end 
   
   def bind_to_mouse mouse
-    @angle_reader = AngleReader.new(@loc,mouse)
+    @angle_reader = AngleReader.new(@loc,mouse,@angle)
   end
   
   def draw
-    @image.draw_rot(@loc.x,@loc.y,@z,@angle)
+    @image.draw_rot(@loc.x,@loc.y,@z,@angle.v)
   end
   
   def update delta
-    @delta_ref = delta
+    @delta_ref.v = delta
     if (@angle_reader)
-      diff = @angle_reader.read_difference(@angle)
+      diff = @angle_reader.read_difference
       #require 'ruby-debug';debugger
       
       @t_1 = diff*diff
@@ -51,8 +52,8 @@ class Ship
   end
   
   def update_position
-    @loc.x+=@vel.x*@delta_ref
-    @loc.y+=@vel.y*@delta_ref
+    @loc.x+=@vel.x*@delta_ref.v
+    @loc.y+=@vel.y*@delta_ref.v
   end
   
   def forward
