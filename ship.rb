@@ -16,7 +16,7 @@ class Ship
     @image = img
     @delta_ref = SharedNum.new #global var for ship object to share delta among update functions
     @angle_reader = nil
-    @my_engine = ShipEngine.new @angle, @delta_ref,@vel, :turn => 155
+    @my_engine = ShipEngine.new @angle, @delta_ref, @vel, :turn => 155
     @t_1 = 1.0
     #require 'ruby-debug';debugger; puts'a'
   end 
