@@ -19,7 +19,7 @@ class ShipEngine
   end
   
   def breaks adj = 1.0
-    @ship.vel.ext -750*@delta_ref.v
+    @vel.ext -750*@delta_ref.v
   end
   
   def left adj = 1.0
