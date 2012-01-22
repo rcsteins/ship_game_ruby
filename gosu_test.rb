@@ -8,41 +8,64 @@ require 'coors.rb'
 require 'ship.rb'
 require 'ship_builder.rb'
 require 'debug_string'
+require 'image_preparer'
 
 class GameWindow < Gosu::Window
   
   def initialize
-    super(1200,700,false,16.66667)
-    self.caption = "Update/Draw Demo"
+    super(1200,700,false,8)
+    self.caption = "Ruby Ship Game"
     
     # we load the font once during initialize, much faster than
     # loading the font before every draw
     @font = Gosu::Font.new(self,Gosu::default_font_name,20)
     @counter = 0
-    #@debug_strings =DebugStrings.new
-    @image1 = Gosu::Image.new(self,"media/testShip2.bmp",false)
-    @image2 = Gosu::Image.new(self,"media/testShip3.bmp",false)
-    @builder = ShipBuilder.new self
-    @ships = {}
+    @imager = ImagePreparer.new(self)
+    @image1 = @imager.prepare("media/testShip2.bmp")
+    @image2 = @imager.prepare("media/testShip3.bmp")
+    @mouse_img = @imager.prepare("media/cursor.bmp")
     
-    @ships[:player] = @builder.new_ship_player
-    @ships[:test_2] = @builder.new_ship @image2
-    #require 'ruby-debug';debugger
+    @mouse_loc = Coors.new(mouse_x, mouse_y)
+    
+    
+    @builder = ShipBuilder.new(self)
+    @ships = {}
+    @ships[:player] = @builder.new_ship(@image1)
+    @ships[:test_1] = @builder.new_ship(@image2,:x => 500, :y => 300, :angle => 180)
+    @ships[:player].bind_to_mouse @mouse_loc
     
     @this_frame =50
     @last_frame =50
     @delta = 0.0
+    nil
   end
   
   def update
     calculate_delta
+    handle_input
     @counter += 1
     @ships.each {|key,ship|ship.update @delta;}
     
   end
   
-  def needs_redraw
-    false
+  def handle_input
+    @mouse_loc.set(mouse_x,mouse_y)
+    
+    if self.button_down?(Gosu::KbA) or self.button_down?(Gosu::GpLeft)
+      @ships[:player].left
+    end
+    
+    if self.button_down?(Gosu::KbD) or self.button_down?(Gosu::GpRight)
+      @ships[:player].right
+    end
+    
+    if self.button_down?(Gosu::KbW) or self.button_down?(Gosu::GpUp)
+      @ships[:player].forward
+    end
+    
+    if self.button_down?(Gosu::KbS) or self.button_down?(Gosu::GpDown)
+      @ships[:player].breaks
+    end
   end
 
   def calculate_delta
@@ -52,10 +75,9 @@ class GameWindow < Gosu::Window
   end
   
   def draw
-    #@font.draw(@counter,0,0,1)
-    
     @ships.each {|k,s|s.draw }
- 
+    #subtract 30 so center of cursor image is on mouse
+    @mouse_img.draw(mouse_x-30,mouse_y-30,2)
   end
   
   def button_down(id)

@@ -1,20 +1,25 @@
 require 'gosu'
+require 'angle_reader'
 
 class Ship 
   attr_accessor :image, :angle, :loc, :db_str
   @@defTurn=300
   
-  def initialize window, x, y, ang, img, input_symbol
+  def initialize (window, x, y, ang, img)
     @loc = Coors.new(x,y)
     @vel = Coors.new(0,0)
-    @angle =0
+    @angle =ang
     @z = 1
-    @window = window
+    @self = window
     @image = img
     @speed=500
-    @delta_ref = 0
-    @input_symbol = input_symbol
+    @delta_ref = 0 #global var for ship object to share delta among update functions
+    @angle_reader = nil
   end 
+  
+  def bind_to_mouse mouse
+    @angle_reader = AngleReader.new(@loc,mouse)
+  end
   
   def draw
     @image.draw_rot(@loc.x,@loc.y,@z,@angle)
@@ -22,43 +27,15 @@ class Ship
   
   def update delta
     @delta_ref = delta
-    self.send @input_symbol
+    if (@angle_reader)
+      diff = @angle_reader.read_difference(@angle)
+      if diff > 0
+        right diff*diff/180
+      else
+        left diff*diff/180
+      end
+    end
     update_position
-  end
-  
-  def player_input
-    if @window.button_down?(Gosu::KbA) or @window.button_down?(Gosu::GpLeft)
-      move_left
-    end
-    if @window.button_down?(Gosu::KbD) or @window.button_down?(Gosu::GpRight)
-      move_right
-    end
-    if @window.button_down?(Gosu::KbW) or @window.button_down?(Gosu::GpUp)
-      move_up
-    end
-    if @window.button_down?(Gosu::KbS) or @window.button_down?(Gosu::GpDown)
-      move_down
-    end
-  end
-  
-  def none
-    
-  end
-  
-  def polled_key_s
-    
-  end
-  
-  def polled_key_a
-    
-  end
-  
-  def polled_key_d
-    
-  end
-  
-  def polled_key_w 
-    
   end
   
   def update_position
@@ -66,22 +43,21 @@ class Ship
     @loc.y+=@vel.y*@delta_ref
   end
   
-  def move_up
+  def forward
     @vel.x+=Gosu::offset_x(@angle,@speed)*@delta_ref
     @vel.y+=Gosu::offset_y(@angle,@speed)*@delta_ref
-    
   end
   
-  def move_down
+  def breaks
     @vel.ext -400*@delta_ref
   end
   
-  def move_left
-    @angle-=@@defTurn*@delta_ref
+  def left adj = 1.0
+    @angle-=@@defTurn*@delta_ref *adj
   end
   
-  def move_right
-    @angle+=@@defTurn*@delta_ref
+  def right adj = 1.0
+    @angle+=@@defTurn*@delta_ref *adj
   end
   
 end
