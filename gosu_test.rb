@@ -16,8 +16,6 @@ class GameWindow < Gosu::Window
     super(1200,700,false,8)
     self.caption = "Ruby Ship Game"
     
-    # we load the font once during initialize, much faster than
-    # loading the font before every draw
     @font = Gosu::Font.new(self,Gosu::default_font_name,20)
     @counter = 0
     @imager = ImagePreparer.new(self)
