@@ -9,6 +9,9 @@ require 'ship.rb'
 require 'ship_builder.rb'
 require 'debug_string'
 require 'image_preparer'
+require 'bullet'
+require 'ruby-debug'
+require 'shared_num'
 
 class GameWindow < Gosu::Window
   
@@ -24,15 +27,23 @@ class GameWindow < Gosu::Window
     @image1 = @imager.prepare("media/testShip2.bmp")
     @image2 = @imager.prepare("media/testShip3.bmp")
     @mouse_img = @imager.prepare("media/cursor.bmp")
-    
+    @bullet_img = @imager.prepare("media/bullet.bmp")
+    Bullet.init_class(@bullet_img)
     @mouse_loc = Coors.new(mouse_x, mouse_y)
     
     
     @builder = ShipBuilder.new(self)
+    
     @ships = {}
-    @ships[:player] = @builder.new_ship(@image1)
-    @ships[:test_1] = @builder.new_ship(@image2,:x => 500, :y => 300, :angle => 180)
-    @ships[:player].bind_to_mouse @mouse_loc
+    lp = [@ships]
+    lp.each do |list|
+      list[:player] = @builder.new_ship(@image1)
+      list[:test_1] = @builder.new_ship(@image2,:x => 500, :y => 300, :angle => 180)
+      list[:player].bind_to_mouse @mouse_loc
+    end
+    
+    @test_render = []
+    @test_render << Bullet.new(Coors.new(300,500),SharedNum.new(157.0))
     
     @this_frame =50
     @last_frame =50
@@ -45,6 +56,7 @@ class GameWindow < Gosu::Window
     handle_input
     @counter += 1
     @ships.each {|key,ship|ship.update @delta;}
+    @test_render.each {|b| b.update @delta}
     
   end
   
@@ -76,6 +88,7 @@ class GameWindow < Gosu::Window
   
   def draw
     @ships.each {|k,s|s.draw }
+    @test_render.each {|a| a.draw}
     #subtract 30 so center of cursor image is on mouse
     @mouse_img.draw(mouse_x-30,mouse_y-30,2)
   end
