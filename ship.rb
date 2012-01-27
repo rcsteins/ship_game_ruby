@@ -4,7 +4,7 @@ require 'ship_engine'
 require 'shared_num'
 
 class Ship 
-  attr_accessor :image, :angle, :loc, :db_str ,:delta_ref, :vel 
+  attr_accessor :image, :angle, :loc, :db_str ,:delta_ref, :vel ,:mouse_angle
   @@defTurn = 300
   @t_1 = 1.0
   def initialize (window, x, y, ang, img)
@@ -18,6 +18,7 @@ class Ship
     @angle_reader = nil
     @my_engine = ShipEngine.new @angle, @delta_ref, @vel, :turn => 225
     @t_1 = 1.0
+    @mouse_angle = SharedNum.new 0
     #require 'ruby-debug';debugger; puts'a'
   end 
   
@@ -33,6 +34,7 @@ class Ship
     @delta_ref.v = delta
     if (@angle_reader)
       diff = @angle_reader.read_difference
+      @mouse_angle.v = @angle_reader.read
       #require 'ruby-debug';debugger
       
       @t_1 = diff*diff

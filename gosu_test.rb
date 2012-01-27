@@ -12,6 +12,7 @@ require 'image_preparer'
 require 'bullet'
 require 'ruby-debug'
 require 'shared_num'
+require 'bullet_builder'
 
 class GameWindow < Gosu::Window
   
@@ -29,6 +30,7 @@ class GameWindow < Gosu::Window
     @mouse_img = @imager.prepare("media/cursor.bmp")
     @bullet_img = @imager.prepare("media/bullet.bmp")
     Bullet.init_class(@bullet_img)
+    
     @mouse_loc = Coors.new(mouse_x, mouse_y)
     
     
@@ -42,11 +44,12 @@ class GameWindow < Gosu::Window
       list[:player].bind_to_mouse @mouse_loc
     end
     
+    @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle)
     @test_render = []
-    @test_render << Bullet.new(Coors.new(300,500),SharedNum.new(157.0))
+    @test_render << Bullet.new(Coors.new(300,500),SharedNum.new(47.0),80)
     
-    @this_frame =50
-    @last_frame =50
+    @this_frame =Gosu::milliseconds
+    @last_frame =Gosu::milliseconds
     @delta = 0.0
     nil
   end
@@ -83,6 +86,7 @@ class GameWindow < Gosu::Window
   def calculate_delta
     @this_frame = Gosu::milliseconds
     @delta = (@this_frame - @last_frame)/1000.0
+    #debugger
     @last_frame = @this_frame
   end
   
@@ -102,6 +106,17 @@ class GameWindow < Gosu::Window
     if id == Gosu::KbQ
      @ships[:player].loc.set(400,400)
     end 
+
+    if id == Gosu::KbI
+      @test_render.each do |t|
+        t.loc.set(300,300)
+      end
+    end
+
+    if id == Gosu::MsLeft
+      @test_render << @bullet_builder.create
+
+    end
   end
   
 end
