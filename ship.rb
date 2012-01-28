@@ -33,8 +33,8 @@ class Ship
   def update delta
     @delta_ref.v = delta
     if (@angle_reader)
-      diff = @angle_reader.read_difference
-      @mouse_angle.v = @angle_reader.read
+      
+      @mouse_angle.v,diff = @angle_reader.read_data 
       #require 'ruby-debug';debugger
       
       @t_1 = diff*diff
