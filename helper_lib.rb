@@ -1,3 +1,5 @@
+require 'gosu'
+
 class Coors
   attr_accessor :x, :y
   
@@ -23,3 +25,13 @@ class Coors
   end
   
 end
+
+class SharedNum
+  attr_accessor :v
+  #def value is zero
+  def initialize init_v=0
+    @v = init_v
+  end
+end
+
+

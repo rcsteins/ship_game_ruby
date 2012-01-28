@@ -3,15 +3,13 @@ $: << "."
 
 require 'rubygems'
 require 'gosu'
-
-require 'coors.rb'
+require 'ruby-debug'
+require 'angle_reader'
+require 'image_preparer'
+require 'helper_lib'
 require 'ship.rb'
 require 'ship_builder.rb'
-require 'debug_string'
-require 'image_preparer'
 require 'bullet'
-require 'ruby-debug'
-require 'shared_num'
 require 'bullet_builder'
 
 class GameWindow < Gosu::Window

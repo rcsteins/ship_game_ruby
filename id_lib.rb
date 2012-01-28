@@ -6,5 +6,8 @@ class IdGen
   def gen
     @current+=1
   end
-  
+end
+
+module IdAble
+  attr_accessor :id
 end

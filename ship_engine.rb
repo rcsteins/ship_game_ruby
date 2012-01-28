@@ -1,5 +1,5 @@
 $: << "."
-require "coors.rb"
+require "helper_lib"
 require "gosu"
 class ShipEngine
   

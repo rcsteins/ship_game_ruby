@@ -1,7 +1,7 @@
 require 'gosu'
 require 'angle_reader'
 require 'ship_engine'
-require 'shared_num'
+require 'helper_lib'
 
 class Ship 
   attr_accessor :image, :angle, :loc, :db_str ,:delta_ref, :vel ,:mouse_angle
