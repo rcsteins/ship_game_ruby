@@ -11,6 +11,7 @@ require 'ship.rb'
 require 'ship_builder.rb'
 require 'bullet'
 require 'bullet_builder'
+require 'throttler.rb'
 
 class GameWindow < Gosu::Window
   
@@ -43,6 +44,7 @@ class GameWindow < Gosu::Window
     end
     
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle)
+    @input_throttle = Throttler.new 0
     @test_render = []
     
     @this_frame =Gosu::milliseconds
@@ -56,8 +58,17 @@ class GameWindow < Gosu::Window
     handle_input
     @counter += 1
     @ships.each {|key,ship|ship.update @delta;}
-    @test_render.each {|b| b.update @delta}
+    @test_render.compact!
+    @test_render.each_with_index  do |b,i| 
+      b.update @delta 
+      if not b.enabled
+        @test_render[i]=nil
+      end   
+    end
+    @test_render.compact!
     
+    
+    puts @test_render.size
   end
   
   def handle_input
@@ -78,6 +89,13 @@ class GameWindow < Gosu::Window
     if self.button_down?(Gosu::KbC) or self.button_down?(Gosu::GpDown)
       @ships[:player].breaks
     end
+    
+    if self.button_down?(Gosu::KbU) or self.button_down?(Gosu::MsRight)
+      #@input_throttle.act do
+        @test_render << @bullet_builder.create
+      #end 
+    end  
+    
   end
 
   def calculate_delta

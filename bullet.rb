@@ -1,11 +1,11 @@
 require 'gosu'
 class Bullet
   require 'ruby-debug'
-  attr_accessor :loc
+  attr_accessor :loc, :enabled
   def Bullet.init_class image
     @@image = image
     @@dmg = 10
-    @@time_limit = 1
+    @@time_limit = 3
     #debugger; puts'a'
   end
   
