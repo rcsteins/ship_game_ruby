@@ -44,7 +44,7 @@ class GameWindow < Gosu::Window
     end
     
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle)
-    @input_throttle = Throttler.new 0
+    @input_throttle = Throttler.new 20
     @test_render = []
     
     @this_frame =Gosu::milliseconds
@@ -91,9 +91,9 @@ class GameWindow < Gosu::Window
     end
     
     if self.button_down?(Gosu::KbU) or self.button_down?(Gosu::MsRight)
-      #@input_throttle.act do
+      @input_throttle.act do
         @test_render << @bullet_builder.create
-      #end 
+      end 
     end  
     
   end
