@@ -4,14 +4,16 @@ require 'ship_engine'
 require 'helper_lib'
 
 class Ship 
-  attr_accessor :image, :angle, :loc, :db_str ,:delta_ref, :vel ,:mouse_angle
+  attr_accessor :image, :angle, :loc ,:delta_ref, :vel ,:mouse_angle
   @@defTurn = 300
+  @Hp=100
   @t_1 = 1.0
-  def initialize (window, x, y, ang, img)
+  
+  def initialize(window, x, y, ang, img, team) 
+    @z = 1
     @loc = Coors.new(x,y)
     @vel = Coors.new(0,0)
     @angle = SharedNum.new ang
-    @z = 1
     @self = window
     @image = img
     @delta_ref = SharedNum.new #global var for ship object to share delta among update functions
@@ -19,6 +21,7 @@ class Ship
     @my_engine = ShipEngine.new @angle, @delta_ref, @vel, :turn => 225
     @t_1 = 1.0
     @mouse_angle = SharedNum.new 0
+    @team = team
     #require 'ruby-debug';debugger; puts'a'
   end 
   

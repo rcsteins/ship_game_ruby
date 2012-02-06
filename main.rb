@@ -44,7 +44,6 @@ class GameWindow < Gosu::Window
     
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle)
     @test_render = []
-    @test_render << Bullet.new(Coors.new(300,500),SharedNum.new(47.0),80)
     
     @this_frame =Gosu::milliseconds
     @last_frame =Gosu::milliseconds
@@ -112,7 +111,7 @@ class GameWindow < Gosu::Window
     end
 
     if id == Gosu::MsLeft
-      @test_render << @bullet_builder.create
+      @test_render << @bullet_builder.create 
 
     end
   end

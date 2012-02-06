@@ -6,7 +6,7 @@ class BulletBuilder
   end
 
   def create speed = 400
-    return Bullet.new(@loc,@angle,speed)
+    return Bullet.new(@loc,@angle,speed,:red)
   end
 
 end

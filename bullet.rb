@@ -4,11 +4,15 @@ class Bullet
   attr_accessor :loc
   def Bullet.init_class image
     @@image = image
+    @@dmg = 10
+    @@time_limit = 1
     #debugger; puts'a'
   end
   
   
-  def initialize start, angle, speed 
+  def initialize start, angle, speed, team 
+    @enabled=true
+    @time =0
     @loc = start.dup
     #be careful! copying a SharedNum
     @angle = angle.dup
@@ -17,6 +21,7 @@ class Bullet
     #debugger
     @vel.y+=Gosu::offset_y(@angle.v,speed) 
     @z = 2
+    @team = team
    # puts ("deltla " +delta.to_s)
   end
   
@@ -25,9 +30,14 @@ class Bullet
   end
   
   def update delta
-    @loc.x += @vel.x*delta
-    #debugger
-    @loc.y += @vel.y*delta
+    @time += delta;
+    @enabled=false if @time > @@time_limit
+    
+    if @enabled;
+      @loc.x += @vel.x*delta
+      @loc.y += @vel.y*delta
+    end
+    
   end
 
 end
