@@ -44,7 +44,7 @@ class GameWindow < Gosu::Window
     end
     
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle)
-    @input_throttle = Throttler.new 20
+    @input_throttle = Throttler.new 1
     @test_render = []
     
     @this_frame =Gosu::milliseconds
@@ -66,9 +66,6 @@ class GameWindow < Gosu::Window
       end   
     end
     @test_render.compact!
-    
-    
-    puts @test_render.size
   end
   
   def handle_input
@@ -101,7 +98,6 @@ class GameWindow < Gosu::Window
   def calculate_delta
     @this_frame = Gosu::milliseconds
     @delta = (@this_frame - @last_frame)/1000.0
-    #debugger
     @last_frame = @this_frame
   end
   
