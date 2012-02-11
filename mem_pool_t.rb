@@ -24,6 +24,7 @@ class FreeList
     @arr << item
   end
   
+  #this function is for debugging only
   def demo_populate
     5.times {add_with_id SharedNum.new}
   end
@@ -77,4 +78,26 @@ module IdManaged
     nil
   end
 end
+
+def scan_and_release arr
+  num_released=0
+  arr.each_with_index do |item,i|
+    if item.v == 0
+      item.release
+      arr[i] = nil
+      num_released+=1
+    end
+  end
+  arr.compact!
+  num_released
+end
+
+def test_case test, arr
+  test = FreeList.new 
+  test.demo_populate
+  arr = []
+  3.times {arr << test.next_free}
+end
+
+
 
