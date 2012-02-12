@@ -13,6 +13,11 @@ class Coors
     @y=y*1.0001
   end
   
+  def set_from_other to_copy
+    @x= to_copy.x
+    @y= to_copy.y
+  end
+  
   def ext amt
     angle  = Gosu::angle(0,0,@x,@y)
     @x += Gosu::offset_x(angle,amt)

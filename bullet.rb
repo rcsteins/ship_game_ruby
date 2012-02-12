@@ -1,28 +1,36 @@
 require 'gosu'
+require 'helper_lib'
 class Bullet
   require 'ruby-debug'
   attr_accessor :loc, :enabled
   def Bullet.init_class image
     @@image = image
     @@dmg = 10
-    @@time_limit = 3
-    #debugger; puts'a'
+    @@time_limit = 1.4
   end
   
-  
-  def initialize start, angle, speed, team 
-    @enabled=true
+  #changing this so that bullet is initiazlied to disabled state
+  def initialize 
+    @enabled=false
     @time =0
-    @loc = start.dup
-    #be careful! copying a SharedNum
-    @angle = angle.dup
     @vel = Coors.new(0.0,0.0)
-    @vel.x+=Gosu::offset_x(@angle.v,speed)
-    #debugger
-    @vel.y+=Gosu::offset_y(@angle.v,speed) 
+    @angle = SharedNum.new(0)
+    @loc = Coors.new(0,0)
     @z = 2
+    puts "object created"
+  end
+  
+  def re_init start, angle, speed, team
+    @enabled = true
+    @time = 0
+    @loc.set_from_other start
+    @angle.v = angle.v
+    @vel.set(0.0,0.0)
+    @vel.x+=Gosu::offset_x(@angle.v,speed)
+    @vel.y+=Gosu::offset_y(@angle.v,speed)
     @team = team
-   # puts ("deltla " +delta.to_s)
+    puts "item #{self.id} allocated" if self.respond_to? :id
+    return self
   end
   
   def draw

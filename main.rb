@@ -12,15 +12,14 @@ require 'ship_builder.rb'
 require 'bullet'
 require 'bullet_builder'
 require 'throttler.rb'
+require 'mem_pool_t'
 
 class GameWindow < Gosu::Window
   
   def initialize
     super(1200,700,false,8)
     self.caption = "Ruby Ship Game"
-    
-    # we load the font once during initialize, much faster than
-    # loading the font before every draw
+
     @font = Gosu::Font.new(self,Gosu::default_font_name,20)
     @counter = 0
     @imager = ImagePreparer.new(self)
@@ -29,6 +28,8 @@ class GameWindow < Gosu::Window
     @mouse_img = @imager.prepare("media/cursor.bmp")
     @bullet_img = @imager.prepare("media/bullet.bmp")
     Bullet.init_class(@bullet_img)
+    @bullet_pool = FreeList.new(400)
+    @bullet_pool.max.times {@bullet_pool.add_with_id Bullet.new}
     
     @mouse_loc = Coors.new(mouse_x, mouse_y)
     
@@ -43,8 +44,9 @@ class GameWindow < Gosu::Window
       list[:player].bind_to_mouse @mouse_loc
     end
     
-    @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle)
-    @input_throttle = Throttler.new 0
+    
+    @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool)
+    @input_throttle = Throttler.new 2
     @test_render = []
     
     @this_frame =Gosu::milliseconds
@@ -62,6 +64,7 @@ class GameWindow < Gosu::Window
     @test_render.each_with_index  do |b,i| 
       b.update @delta 
       if not b.enabled
+        b.release
         @test_render[i]=nil
       end   
     end

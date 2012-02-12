@@ -3,15 +3,13 @@ require 'id_lib'
 
 class FreeList
   
-  attr_accessor :arr
+  attr_accessor :arr,:max
   
-  def initialize 
+  def initialize max
     @arr = []
     @next_free = 0;
     @id_gen = IdGen.new
-    def @arr.list_i
-      self.each {|item| puts item.v.to_s + "," + item.id.to_s}
-    end
+    @max = max
   end
   
   #constuctor called on item must set item to valid disabled state
@@ -29,6 +27,7 @@ class FreeList
     5.times {add_with_id SharedNum.new}
   end
   
+  #this function is for debugging only
   def show
     @arr.list_i
     nil
@@ -41,7 +40,7 @@ class FreeList
     
     #this shouldn't be in final class, caller must call re_init on returned object to 'activate'
     #return @next_free -1 because of the pre-incrementation
-    @arr[@next_free-1].v=1
+    #@arr[@next_free-1].v=1
     
     return @arr[@next_free-1]
   end
@@ -52,9 +51,6 @@ class FreeList
       #decrement next_free, since next_free-1 is getting a released item
       @next_free-=1
       
-      #for development, marking released items as -5
-      return_to_disabled @arr[release_id]
-      
       #swap ids
       @arr[@next_free].id,@arr[release_id].id = @arr[release_id].id,@arr[@next_free].id
       
@@ -64,10 +60,6 @@ class FreeList
     end
   end
   
-  def return_to_disabled item
-    item.v= -5
-  end
-  
 end
 
 module IdManaged
@@ -75,10 +67,13 @@ module IdManaged
   attr_writer :id_manager
   def release
     @id_manager.release_by_id self.id
+    puts "Item #{self.id}, released"
     nil
   end
 end
 
+
+##These methods were for testing when I was using integers
 def scan_and_release arr
   num_released=0
   arr.each_with_index do |item,i|
