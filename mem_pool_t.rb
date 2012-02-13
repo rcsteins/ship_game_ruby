@@ -18,7 +18,7 @@ class FreeList
     #here we automatically mix in the IdManaged protocol
     item.extend IdManaged
     item.id_manager = self
-    item.id =id
+    item.pool_id =id
     @arr << item
   end
   
@@ -26,6 +26,7 @@ class FreeList
   def next_free
     #need to increment before returning value, because returning exits function
     @next_free+=1
+    puts "item #{arr[@next_free-1].pool_id} allocated" 
     return @arr[@next_free-1]
   end
   
@@ -36,7 +37,7 @@ class FreeList
       @next_free-=1
       
       #swap ids
-      @arr[@next_free].id,@arr[release_id].id = @arr[release_id].id,@arr[@next_free].id
+      @arr[@next_free].pool_id,@arr[release_id].pool_id = @arr[release_id].pool_id,@arr[@next_free].pool_id
       
       #swap positions
       @arr[@next_free],@arr[release_id] = @arr[release_id],@arr[@next_free]
@@ -47,10 +48,11 @@ class FreeList
 end
 
 module IdManaged
-  attr_writer :id_manager, :id
+  attr_accessor :pool_id
+  attr_writer :id_manager
   def release
-    @id_manager.release_by_id self.id
-    puts "Item #{self.id}, released"
+    puts "item #{self.pool_id} released"
+    @id_manager.release_by_id self.pool_id
     nil
   end
 end

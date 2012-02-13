@@ -29,7 +29,6 @@ class Bullet
     @vel.x+=Gosu::offset_x(@angle.v,speed)
     @vel.y+=Gosu::offset_y(@angle.v,speed)
     @team = team
-    puts "item #{self.id} allocated" if self.respond_to? :id
     return self
   end
   
