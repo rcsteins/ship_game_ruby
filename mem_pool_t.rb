@@ -5,13 +5,28 @@ class FreeList
   
   attr_accessor :arr,:max
   
-  def initialize max
+  def initialize max, type
     @arr = []
     @next_free = 0;
     @id_gen = IdGen.new
     @max = max
+    @type = type
+    self.populate
   end
   
+  def populate
+    @max.times {self.add_with_id @type.new}
+  end
+ 
+  def sizeup
+    add = (@max * 0.5).to_i
+    @max+=add
+    add.times {self.add_with_id @type.new}
+    puts 'pool resized'
+    debugger
+    nil
+  end
+
   #constuctor called on item must set item to valid disabled state
   def add_with_id item
     id = @id_gen.gen
@@ -25,6 +40,7 @@ class FreeList
   #this returns valid disabled item
   def next_free
     #need to increment before returning value, because returning exits function
+    sizeup if @next_free >= @max
     @next_free+=1
     puts "item #{arr[@next_free-1].pool_id} allocated" 
     return @arr[@next_free-1]

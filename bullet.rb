@@ -1,7 +1,12 @@
 require 'gosu'
 require 'helper_lib'
+
+module EnableSwitch
+  attr_accessor :enabled
+end
+
 class Bullet
-  require 'ruby-debug'
+  include EnableSwitch
   attr_accessor :loc, :enabled
   def Bullet.init_class image
     @@image = image
@@ -48,3 +53,4 @@ class Bullet
   end
 
 end
+
