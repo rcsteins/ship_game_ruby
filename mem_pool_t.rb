@@ -19,11 +19,11 @@ class FreeList
   end
  
   def sizeup
-    add = (@max * 0.5).to_i
+    #plus one is for very small numbers that might get truncated to zero
+    add = (@max * 0.5).to_i+1
     @max+=add
     add.times {self.add_with_id @type.new}
     puts 'pool resized'
-    debugger
     nil
   end
 

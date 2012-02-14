@@ -22,7 +22,6 @@ class Bullet
     @angle = SharedNum.new(0)
     @loc = Coors.new(0,0)
     @z = 2
-    puts "object created"
   end
   
   def re_init start, angle, speed, team
