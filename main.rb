@@ -3,7 +3,7 @@ $: << "."
 
 require 'rubygems'
 require 'gosu'
-require 'ruby-debug'
+#require 'ruby-debug'
 require 'angle_reader'
 require 'image_preparer'
 require 'helper_lib'
@@ -17,7 +17,7 @@ require 'mem_pool_t'
 class GameWindow < Gosu::Window
   
   def initialize
-    super(1200,700,false,8)
+    super(1200,700,false,16)
     self.caption = "Ruby Ship Game"
 
     @font = Gosu::Font.new(self,Gosu::default_font_name,20)
@@ -44,7 +44,7 @@ class GameWindow < Gosu::Window
     
     
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool)
-    @input_throttle = Throttler.new 2
+    @input_throttle = Throttler.new 0
     @test_render = []
     
     @this_frame =Gosu::milliseconds
