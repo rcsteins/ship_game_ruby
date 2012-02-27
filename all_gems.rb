@@ -1,9 +1,8 @@
 #kludge ruby 1.9.2 introduced
 $: << "."
 require 'rubygems'
-require 'gosu'
-#for some reason ruby-debug doesnt work on OSX for me   
-#require 'ruby-debug' 
+require 'gosu'  
+require 'ruby-debug' 
 require 'angle_reader'
 require 'image_preparer'
 require 'helper_lib'
