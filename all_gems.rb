@@ -2,7 +2,7 @@
 $: << "."
 require 'rubygems'
 require 'gosu'
-#for some reason ruby-debug doesnt work on OSX for me
+#for some reason ruby-debug doesnt work on OSX for me   
 #require 'ruby-debug' 
 require 'angle_reader'
 require 'image_preparer'
