@@ -3,3 +3,7 @@ To install Gem requirements -
 
 To run - 
 ruby lib/ship_game_ruby.rb 
+
+to run the test suite
+
+bundle exec rspec
