@@ -1,8 +1,3 @@
-require 'gosu'
-require 'angle_reader'
-require 'ship_engine'
-require 'helper_lib'
-
 class Ship 
   attr_accessor :image, :angle, :loc ,:delta_ref, :vel ,:mouse_angle
   @@defTurn = 300
