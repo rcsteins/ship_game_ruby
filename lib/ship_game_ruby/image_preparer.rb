@@ -1,4 +1,3 @@
-require 'gosu'
 class ImagePreparer
   def initialize(window)
     @self=window

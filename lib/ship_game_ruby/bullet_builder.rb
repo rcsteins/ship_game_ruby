@@ -1,4 +1,3 @@
-require 'bullet'
 class BulletBuilder
   def initialize loc_link, angle_link, free_list
      @loc = loc_link

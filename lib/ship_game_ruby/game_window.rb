@@ -1,5 +1,3 @@
-require 'all_gems'
-
 class GameWindow < Gosu::Window
   
   def initialize
@@ -115,11 +113,5 @@ class GameWindow < Gosu::Window
       @test_render << @bullet_builder.create 
 
     end
-  end
-  
+  end 
 end
-
-window = GameWindow.new
-window.show
-
-

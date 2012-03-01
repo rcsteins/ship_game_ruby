@@ -1,6 +1,3 @@
-require 'gosu'
-require 'helper_lib'
-
 module EnableSwitch
   attr_accessor :enabled
 end
