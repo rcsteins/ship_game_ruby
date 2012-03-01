@@ -1,6 +1,3 @@
-$: << "."
-require "helper_lib"
-require "gosu"
 class ShipEngine
   
   def initialize(angle,delta,vel, opt={})

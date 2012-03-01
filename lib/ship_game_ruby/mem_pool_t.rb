@@ -1,6 +1,3 @@
-require 'helper_lib'
-require 'id_lib'
-
 class FreeList
   
   attr_accessor :arr,:max

@@ -1,6 +1,3 @@
-require 'rubygems'
-require 'gosu'
-
 class Coors
   attr_accessor :x, :y
   
