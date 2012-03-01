@@ -8,7 +8,8 @@ require 'gosu'
 root_directory = File.join(File.dirname(__FILE__), 'ship_game_ruby')
 Dir["#{root_directory}/*.rb"].each {|file| require file }
 
-window = GameWindow.new
-window.show
-
+if __FILE__ == $0
+  window = GameWindow.new
+  window.show
+end
 
