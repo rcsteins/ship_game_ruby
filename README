@@ -1,5 +1,5 @@
-This project requires Gosu
-  gem install gosu
+To install Gem requirements - 
+  bundle
 
 To run - 
-  ruby main.rb
+ruby lib/ship_game_ruby.rb 

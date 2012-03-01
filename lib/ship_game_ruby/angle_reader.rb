@@ -1,5 +1,3 @@
-require 'gosu'
-
 class AngleReader
   def initialize(src,dest,angle_ref)
     @src = src

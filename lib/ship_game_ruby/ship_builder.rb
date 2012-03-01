@@ -1,4 +1,3 @@
-require 'ship'
 class ShipBuilder
   attr_accessor :images
   
