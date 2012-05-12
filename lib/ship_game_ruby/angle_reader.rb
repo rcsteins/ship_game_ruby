@@ -3,7 +3,6 @@ class AngleReader
     @src = src
     @dest = dest
     @angle = angle_ref
-    #require 'ruby-debug'; debugger; puts 'a'
   end
   
   def read_absolute
