@@ -100,7 +100,6 @@ class GameWindow < Gosu::Window
   def button_down(id)
     if id == Gosu::KbEscape
       close # exit on press of escape key
-    
     end
     
     if id == Gosu::KbQ
@@ -115,7 +114,7 @@ class GameWindow < Gosu::Window
 
     if id == Gosu::MsLeft
       @bullet_builder.create 
-
     end
+    
   end 
 end
