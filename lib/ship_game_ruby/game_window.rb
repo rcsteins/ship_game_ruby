@@ -19,23 +19,22 @@ class GameWindow < Gosu::Window
     @ships[:test_1] = @builder.new_ship(@image2,:x => 500, :y => 300, :angle => 180)
     @ships[:player].bind_to_mouse @mouse_loc
 
-    @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool)
+    @bullets = []
+    @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)
     @input_throttle = Throttler.new 5
+    
   end
   
-  
   def initialize
-    
     
     super(1200,700,false,16)
     self.caption = "Ruby Ship Game"
     @font = Gosu::Font.new(self,Gosu::default_font_name,20)
     @counter = 0
     @mouse_loc = Coors.new(mouse_x, mouse_y)
+    
     load_images()
     prepare_game_pieces() #must do after load_images
-    
-    @test_render = []
     
     @this_frame =Gosu::milliseconds
     @last_frame =Gosu::milliseconds
@@ -49,15 +48,15 @@ class GameWindow < Gosu::Window
     @counter += 1
     @ships.each {|key,ship|ship.update @delta;}
     
-    @test_render.compact!
-    @test_render.each_with_index  do |b,i| 
+    @bullets.compact!
+    @bullets.each_with_index  do |b,i| 
       b.update @delta unless b.nil?
       if not b.enabled
         b.release
-        @test_render[i]=nil
+        @bullets[i]=nil
       end   
     end
-    #@test_render.compact!
+    #@bullets.compact!
   end
   
   def handle_input
@@ -80,10 +79,8 @@ class GameWindow < Gosu::Window
     end
     
     if self.button_down?(Gosu::KbU) or self.button_down?(Gosu::MsRight)
-      @input_throttle.act do
-        @test_render << @bullet_builder.create
-      end 
-    end  
+       @bullet_builder.throttled_create 
+    end
     
   end
 
@@ -95,7 +92,7 @@ class GameWindow < Gosu::Window
   
   def draw
     @ships.each {|k,s|s.draw }
-    @test_render.each {|a| a.draw unless a.nil?}
+    @bullets.each {|a| a.draw unless a.nil?}
     #subtract 30 so center of cursor image is on mouse
     @mouse_img.draw(mouse_x-30,mouse_y-30,2)
   end
@@ -111,13 +108,13 @@ class GameWindow < Gosu::Window
     end 
 
     if id == Gosu::KbI
-      @test_render.each do |t|
+      @bullets.each do |t|
         t.loc.set(300,300)
       end
     end
 
     if id == Gosu::MsLeft
-      @test_render << @bullet_builder.create 
+      @bullet_builder.create 
 
     end
   end 
