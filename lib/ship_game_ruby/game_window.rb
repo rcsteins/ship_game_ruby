@@ -12,7 +12,7 @@ class GameWindow < Gosu::Window
     @mouse_img = @imager.prepare("media/cursor.bmp")
     @bullet_img = @imager.prepare("media/bullet.bmp")
     Bullet.init_class(@bullet_img)
-    @bullet_pool = FreeList.new(1,Bullet)
+    @bullet_pool = FreeList.new(50,Bullet)
     @mouse_loc = Coors.new(mouse_x, mouse_y)
     
     

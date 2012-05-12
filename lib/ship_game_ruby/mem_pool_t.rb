@@ -39,7 +39,7 @@ class FreeList
     #need to increment before returning value, because returning exits function
     sizeup if @next_free >= @max
     @next_free+=1
-    puts "item #{arr[@next_free-1].pool_id} allocated" 
+   # puts "item #{arr[@next_free-1].pool_id} allocated" 
     return @arr[@next_free-1]
   end
   
@@ -64,7 +64,7 @@ module IdManaged
   attr_accessor :pool_id
   attr_writer :id_manager
   def release
-    puts "item #{self.pool_id} released"
+    #puts "item #{self.pool_id} released"
     @id_manager.release_by_id self.pool_id
     nil
   end
