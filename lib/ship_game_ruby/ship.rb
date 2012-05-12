@@ -4,19 +4,20 @@ class Ship
   @Hp=100
   @t_1 = 1.0
   
-  def initialize(window, x, y, ang, img, team) 
+  def initialize(img, options_in = {}) 
+    options = {:x => 0,:y => 0, :angle => 0 , :team => :red}.merge!(options_in)
+    x,y = options[:x],options[:y]
     @z = 1
     @loc = Coors.new(x,y)
     @vel = Coors.new(0,0)
-    @angle = SharedNum.new ang
-    @self = window
+    @angle = SharedNum.new options[:angle]
     @image = img
     @delta_ref = SharedNum.new #global var for ship object to share delta among update functions
     @angle_reader = nil
     @my_engine = ShipEngine.new @angle, @delta_ref, @vel, :turn => 225
     @t_1 = 1.0
     @mouse_angle = SharedNum.new 0
-    @team = team
+    @team = options[:team]
     #require 'ruby-debug';debugger; puts'a'
   end 
   

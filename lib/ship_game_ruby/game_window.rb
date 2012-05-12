@@ -13,7 +13,7 @@ class GameWindow < Gosu::Window
     Bullet.init_class(@bullet_img)
     @bullet_pool = FreeList.new(50,Bullet)
     
-    @builder = ShipBuilder.new(self)
+    @builder = ShipBuilder.new
     @ships = {}
     @ships[:player] = @builder.new_ship(@image1)
     @ships[:test_1] = @builder.new_ship(@image2,:x => 500, :y => 300, :angle => 180)
