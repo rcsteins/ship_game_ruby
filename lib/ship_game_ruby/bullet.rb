@@ -37,7 +37,7 @@ class Bullet
     @@image.draw_rot(@loc.x,@loc.y,@z,@angle.v)
   end
   
-  def update delta
+  def update 
     @time += $delta;
     @enabled=false if @time > @@time_limit
     

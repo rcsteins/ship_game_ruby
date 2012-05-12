@@ -53,7 +53,7 @@ class GameWindow < Gosu::Window
     @bullets.compact!
     @bullets.each_with_index  do |b,i| 
       if b.enabled 
-        b.update $delta 
+        b.update 
       else  
         b.release
         @bullets[i]=nil    
