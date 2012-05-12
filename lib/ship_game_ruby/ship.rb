@@ -12,9 +12,8 @@ class Ship
     @vel = Coors.new(0,0)
     @angle = SharedNum.new options[:angle]
     @image = img
-    @delta_ref = SharedNum.new #global var for ship object to share delta among update functions
     @angle_reader = nil
-    @my_engine = ShipEngine.new @angle, @delta_ref, @vel, :turn => 225
+    @my_engine = ShipEngine.new @angle, @vel, :turn => 225
     @t_1 = 1.0
     @mouse_angle = SharedNum.new 0
     @team = options[:team]
@@ -29,12 +28,10 @@ class Ship
     @image.draw_rot(@loc.x,@loc.y,@z,@angle.v)
   end
   
-  def update delta
-    @delta_ref.v = delta
+  def update 
     if (@angle_reader)
       
       @mouse_angle.v,diff = @angle_reader.read_data 
-      #require 'ruby-debug';debugger
       
       @t_1 = diff*diff
       if @t_1 > 160.0
@@ -53,8 +50,8 @@ class Ship
   end
   
   def update_position
-    @loc.x+=@vel.x*@delta_ref.v
-    @loc.y+=@vel.y*@delta_ref.v
+    @loc.x+=@vel.x*$delta
+    @loc.y+=@vel.y*$delta
   end
   
   def forward

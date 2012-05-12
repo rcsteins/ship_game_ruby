@@ -1,3 +1,4 @@
+$delta = 0
 class GameWindow < Gosu::Window
   
   def load_images
@@ -39,7 +40,7 @@ class GameWindow < Gosu::Window
     
     @this_frame =Gosu::milliseconds
     @last_frame =Gosu::milliseconds
-    @delta = 0.0
+    $delta = 0.0
     nil
   end
   
@@ -47,15 +48,16 @@ class GameWindow < Gosu::Window
     calculate_delta
     handle_input
     @counter += 1
-    @ships.each {|key,ship|ship.update @delta;}
+    @ships.each {|key,ship|ship.update }
     
     @bullets.compact!
     @bullets.each_with_index  do |b,i| 
-      b.update @delta unless b.nil?
-      if not b.enabled
+      if b.enabled 
+        b.update $delta 
+      else  
         b.release
-        @bullets[i]=nil
-      end   
+        @bullets[i]=nil    
+      end
     end
     #@bullets.compact!
   end
@@ -80,14 +82,14 @@ class GameWindow < Gosu::Window
     end
     
     if self.button_down?(Gosu::KbU) or self.button_down?(Gosu::MsRight)
-       @bullet_builder.throttled_create 
+      @bullet_builder.throttled_create 
     end
     
   end
 
   def calculate_delta
     @this_frame = Gosu::milliseconds
-    @delta = (@this_frame - @last_frame)/1000.0
+    $delta = (@this_frame - @last_frame)/1000.0
     @last_frame = @this_frame
   end
   
@@ -106,6 +108,6 @@ class GameWindow < Gosu::Window
     @bullets.each { |t| t.loc.set(300,300)} if id == Gosu::KbI
     
     @bullet_builder.create if id == Gosu::MsLeft
-    
   end 
+  
 end
