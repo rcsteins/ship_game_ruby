@@ -1,34 +1,40 @@
 class GameWindow < Gosu::Window
   
-  def initialize
-    super(1200,700,false,16)
-    self.caption = "Ruby Ship Game"
-
-    @font = Gosu::Font.new(self,Gosu::default_font_name,20)
-    @counter = 0
+  def load_images
     @imager = ImagePreparer.new(self)
     @image1 = @imager.prepare("media/testShip2.bmp")
     @image2 = @imager.prepare("media/testShip3.bmp")
     @mouse_img = @imager.prepare("media/cursor.bmp")
     @bullet_img = @imager.prepare("media/bullet.bmp")
+  end
+  
+  def prepare_game_pieces
+    
     Bullet.init_class(@bullet_img)
     @bullet_pool = FreeList.new(50,Bullet)
-    @mouse_loc = Coors.new(mouse_x, mouse_y)
-    
     
     @builder = ShipBuilder.new(self)
-    
     @ships = {}
-    lp = [@ships]
-    lp.each do |list|
-      list[:player] = @builder.new_ship(@image1)
-      list[:test_1] = @builder.new_ship(@image2,:x => 500, :y => 300, :angle => 180)
-      list[:player].bind_to_mouse @mouse_loc
-    end
-    
-    
+    @ships[:player] = @builder.new_ship(@image1)
+    @ships[:test_1] = @builder.new_ship(@image2,:x => 500, :y => 300, :angle => 180)
+    @ships[:player].bind_to_mouse @mouse_loc
+
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool)
-    @input_throttle = Throttler.new 0
+    @input_throttle = Throttler.new 5
+  end
+  
+  
+  def initialize
+    
+    
+    super(1200,700,false,16)
+    self.caption = "Ruby Ship Game"
+    @font = Gosu::Font.new(self,Gosu::default_font_name,20)
+    @counter = 0
+    @mouse_loc = Coors.new(mouse_x, mouse_y)
+    load_images()
+    prepare_game_pieces() #must do after load_images
+    
     @test_render = []
     
     @this_frame =Gosu::milliseconds
@@ -42,9 +48,10 @@ class GameWindow < Gosu::Window
     handle_input
     @counter += 1
     @ships.each {|key,ship|ship.update @delta;}
+    
     @test_render.compact!
     @test_render.each_with_index  do |b,i| 
-      b.update @delta 
+      b.update @delta unless b.nil?
       if not b.enabled
         b.release
         @test_render[i]=nil
