@@ -6,8 +6,8 @@ class ShipBuilder
     @options = {:x=>200,:y=>200,:angle =>0,:team=> :red }
   end
   
-  def new_ship image, options = {}
-    return Ship.new image, @options.merge(options)
+  def new_ship img_key, options = {}
+    return Ship.new @images[img_key], @options.merge(options)
   end
 
 end

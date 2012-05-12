@@ -14,9 +14,11 @@ class GameWindow < Gosu::Window
     @bullet_pool = FreeList.new(50,Bullet)
     
     @builder = ShipBuilder.new
+    @builder.images[:player] = @image1
+    @builder.images[:ai] = @image2
     @ships = {}
-    @ships[:player] = @builder.new_ship(@image1)
-    @ships[:test_1] = @builder.new_ship(@image2,:x => 500, :y => 300, :angle => 180)
+    @ships[:player] = @builder.new_ship(:player)
+    @ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180)
     @ships[:player].bind_to_mouse @mouse_loc
 
     @bullets = []
