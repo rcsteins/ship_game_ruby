@@ -99,23 +99,13 @@ class GameWindow < Gosu::Window
   end
   
   def button_down(id)
-    if id == Gosu::KbEscape
-      close # exit on press of escape key
-    end
+    close  if id == Gosu::KbEscape
     
-    if id == Gosu::KbQ
-     @ships[:player].loc.set(400,400)
-    end 
+    @ships[:player].loc.set(400,400) if id == Gosu::KbQ
 
-    if id == Gosu::KbI
-      @bullets.each do |t|
-        t.loc.set(300,300)
-      end
-    end
-
-    if id == Gosu::MsLeft
-      @bullet_builder.create 
-    end
+    @bullets.each { |t| t.loc.set(300,300)} if id == Gosu::KbI
+    
+    @bullet_builder.create if id == Gosu::MsLeft
     
   end 
 end
