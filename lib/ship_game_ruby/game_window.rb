@@ -57,7 +57,7 @@ class GameWindow < Gosu::Window
         @test_render[i]=nil
       end   
     end
-    @test_render.compact!
+    #@test_render.compact!
   end
   
   def handle_input
@@ -95,7 +95,7 @@ class GameWindow < Gosu::Window
   
   def draw
     @ships.each {|k,s|s.draw }
-    @test_render.each {|a| a.draw}
+    @test_render.each {|a| a.draw unless a.nil?}
     #subtract 30 so center of cursor image is on mouse
     @mouse_img.draw(mouse_x-30,mouse_y-30,2)
   end
