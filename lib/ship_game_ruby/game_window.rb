@@ -23,7 +23,6 @@ class GameWindow < Gosu::Window
 
     @bullets = []
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)
-    @input_throttle = Throttler.new 5
     
   end
   
