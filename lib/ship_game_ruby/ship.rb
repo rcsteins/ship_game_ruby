@@ -17,6 +17,7 @@ class Ship
     @t_1 = 1.0
     @mouse_angle = SharedNum.new 0
     @team = options[:team]
+    @diff = 0 
     #require 'ruby-debug';debugger; puts'a'
   end 
   
@@ -28,19 +29,22 @@ class Ship
     @image.draw_rot(@loc.x,@loc.y,@z,@angle.v)
   end
   
+  def normalize_t1 
+    @t_1 = @diff*@diff
+    if @t_1 > 160.0
+       @t_1 = 1.0
+    else
+      @t_1 = @t_1/160
+    end
+  end
+  
   def update 
     if (@angle_reader)
+      @mouse_angle.v,@diff = @angle_reader.read_data 
       
-      @mouse_angle.v,diff = @angle_reader.read_data 
+      normalize_t1 
       
-      @t_1 = diff*diff
-      if @t_1 > 160.0
-         @t_1 = 1.0
-      else
-        @t_1 = @t_1/160
-      end
-      
-      if diff > 0
+      if @diff > 0
         right @t_1
       else
         left @t_1
@@ -54,7 +58,7 @@ class Ship
     @loc.y+=@vel.y*$delta
   end
   
-  def forward
+  def forward 
     @my_engine.forward
   end
   
