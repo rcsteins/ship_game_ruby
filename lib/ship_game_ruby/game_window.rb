@@ -21,6 +21,7 @@ class GameWindow < Gosu::Window
     @ships[:player] = @builder.new_ship(:player)
     @ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180)
     @ships[:player].bind_to_mouse @mouse_loc
+    @ships[:player].inspector = true
 
     @bullets = []
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)

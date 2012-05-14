@@ -1,7 +1,7 @@
 class Ship 
   #attr_accessor :image, :angle, :loc ,:delta_ref, :vel ,:mouse_angle
-  attr_accessor :loc, :mouse_angle
-  @@defTurn = 300
+  attr_accessor :loc, :mouse_angle, :inspector
+  @@defTurn = 100
   @Hp=100
   @t_1 = 1.0
   
@@ -21,7 +21,7 @@ class Ship
     @angle = SharedNum.new options[:angle]
     @image = img
     @angle_reader = nil
-    @my_engine = ShipEngine.new @angle, @vel, :turn => 225
+    @my_engine = ShipEngine.new @angle, @vel, :turn => @@defTurn
     @t_1 = 1.0
     @mouse_angle = SharedNum.new 0
     @team = options[:team]
@@ -44,6 +44,7 @@ class Ship
     else
       @t_1 = @t_1/160
     end
+    @diff_sqaure = @diff*@diff
   end
   
   def update 
@@ -65,14 +66,18 @@ class Ship
   end
   
   def adjust_turn
-    if @diff > 0
-      right @t_1
-    else
-      left @t_1
-    end
+    abs = @diff.abs
+    amt = (180-abs)*(180-abs)/32400
+    @t_1 = amt
+    puts amt if @inspector
   end
   
   def update_position
+    if @diff > 0
+      right @t_1 
+    else
+      left @t_1 
+    end
     @loc.x+=@accel.x
     @loc.y+=@accel.y
   end
