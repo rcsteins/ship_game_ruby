@@ -4,6 +4,12 @@ class Ship
   @Hp=100
   @t_1 = 1.0
   
+  [:adjust_acceleration, :adjust_turn].each do |name|
+    define_method name do 
+      nil
+    end
+  end
+  
   def initialize(img, options_in = {}) 
     options = {:x => 0,:y => 0, :angle => 0 , :team => :red}.merge!(options_in)
     x,y = options[:x],options[:y]
@@ -39,18 +45,25 @@ class Ship
   end
   
   def update 
+    self.think
+    self.adjust_acceleration
+    self.adjust_turn
+    self.update_position
+  end
+  
+  def think
     if (@angle_reader)
       @mouse_angle.v,@diff = @angle_reader.read_data 
-      
-      normalize_t1 
-      
-      if @diff > 0
-        right @t_1
-      else
-        left @t_1
-      end
     end
-    update_position
+    normalize_t1 
+  end
+  
+  def adjust_turn
+    if @diff > 0
+      right @t_1
+    else
+      left @t_1
+    end
   end
   
   def update_position

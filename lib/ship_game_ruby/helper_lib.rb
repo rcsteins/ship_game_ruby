@@ -6,8 +6,8 @@ class Coors
   end
   
   def set x,y
-    @x=x*1.0001
-    @y=y*1.0001
+    @x=Float(x)
+    @y=Float(y)
   end
   
   def set_from_other to_copy

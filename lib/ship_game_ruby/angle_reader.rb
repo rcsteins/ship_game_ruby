@@ -2,7 +2,7 @@ class AngleReader
   def initialize(src,dest,angle_ref)
     @src = src
     @dest = dest
-    @angle = angle_ref
+    @angle = angle_ref #assume angle follows SharedNum protocol
   end
   
   def read_absolute

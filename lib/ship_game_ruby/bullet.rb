@@ -1,9 +1,4 @@
-module EnableSwitch
-  attr_accessor :enabled
-end
-
 class Bullet
-  include EnableSwitch
   attr_accessor :loc, :enabled
   def Bullet.init_class image
     @@image = image
