@@ -1,5 +1,6 @@
 class Ship 
-  attr_accessor :image, :angle, :loc ,:delta_ref, :vel ,:mouse_angle
+  #attr_accessor :image, :angle, :loc ,:delta_ref, :vel ,:mouse_angle
+  attr_accessor :loc, :mouse_angle
   @@defTurn = 300
   @Hp=100
   @t_1 = 1.0
@@ -16,6 +17,7 @@ class Ship
     @z = 1
     @loc = Coors.new(x,y)
     @vel = Coors.new(0,0)
+    @accel = Coors.new(0,0)
     @angle = SharedNum.new options[:angle]
     @image = img
     @angle_reader = nil
@@ -58,6 +60,10 @@ class Ship
     normalize_t1 
   end
   
+  def adjust_acceleration
+    @accel.set(@vel.x*$delta,@vel.y*$delta)
+  end
+  
   def adjust_turn
     if @diff > 0
       right @t_1
@@ -67,8 +73,8 @@ class Ship
   end
   
   def update_position
-    @loc.x+=@vel.x*$delta
-    @loc.y+=@vel.y*$delta
+    @loc.x+=@accel.x
+    @loc.y+=@accel.y
   end
   
   def forward 
