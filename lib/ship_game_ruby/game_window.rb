@@ -109,6 +109,11 @@ class GameWindow < Gosu::Window
     @bullets.each { |t| t.loc.set(300,300)} if id == Gosu::KbI
     
     @bullet_builder.create if id == Gosu::MsLeft
+    
+    if id == Gosu::KbT
+      @ships[:player].toggle 
+      puts 'aaaaaaaaaaaaaaaaa'
+    end
   end 
   
 end
