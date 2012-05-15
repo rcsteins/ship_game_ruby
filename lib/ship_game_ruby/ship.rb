@@ -28,25 +28,7 @@ class Ship
     @turn_lock = false
     @throttler = Throttler.new 30
     @throttler2 = Throttler.new 30
-    #require 'ruby-debug';debugger; puts'a'
-  end 
-  
-  def toggle
-    if not @turn_lock
-      @turn_lock = true
-    else 
-      @turn_lock = false
-    end
   end
-  
-  def turn_lock= other
-    if other == false
-      puts "changing to false throu acc"
-      puts @turn_lock
-    end
-    @turn_lock = other
-  end 
-  
   
   def bind_to_mouse mouse
     @angle_reader = AngleReader.new(@loc,mouse,@angle)
@@ -59,10 +41,11 @@ class Ship
   def normalize_t1 
     @t_1 = @diff*@diff
     @diff_squared = @t_1
-    if @t_1 > 160.0
+    lim =40
+    if @t_1 > lim
        @t_1 = 1.0
     else
-      @t_1 = @t_1/160
+      @t_1 = @t_1/lim
     end
   end
   
@@ -75,7 +58,6 @@ class Ship
     if (@angle_reader)
       @mouse_angle.v,@diff = @angle_reader.read_data 
     end
-
   end
   
   def update_position
