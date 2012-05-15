@@ -58,12 +58,12 @@ class Ship
   
   def normalize_t1 
     @t_1 = @diff*@diff
+    @diff_squared = @t_1
     if @t_1 > 160.0
        @t_1 = 1.0
     else
       @t_1 = @t_1/160
     end
-    @diff_sqaure = @diff*@diff
   end
   
   def update 
