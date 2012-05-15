@@ -68,7 +68,6 @@ class Ship
   
   def update 
     self.think
-    self.adjust_turn
     self.update_position
   end
   
@@ -79,16 +78,9 @@ class Ship
 
   end
   
-  def adjust_turn
-    normalize_t1 
-  end
-  
   def update_position
-    if @diff > 0
-      @my_engine.right @t_1 
-    else
-      @my_engine.left @t_1 
-    end
+    normalize_t1()
+    @my_engine.rotate(@t_1  * @diff/(@diff.abs+0.0001))
     @my_engine.update_position
   end
   
