@@ -28,6 +28,7 @@ class Ship
     @turn_lock = false
     @throttler = Throttler.new 30
     @throttler2 = Throttler.new 30
+    @control_struct = ShipControlStruct.new
   end
   
   def bind_to_mouse mouse
@@ -58,11 +59,12 @@ class Ship
     if (@angle_reader)
       @mouse_angle.v,@diff = @angle_reader.read_data 
     end
+    @control_struct.rotate = @diff/(@diff.abs+0.0001)
   end
   
   def update_position
     normalize_t1()
-    @my_engine.rotate(@t_1  * @diff/(@diff.abs+0.0001))
+    @my_engine.rotate(@t_1  *@control_struct.rotate )
     @my_engine.update_position
   end
   
