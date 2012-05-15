@@ -87,7 +87,14 @@ class Ship
   
   def adjust_turn
     abs = @diff.abs
-    amt = (abs/90) ** 0.5
+    amt = 0.0
+    if abs < 90
+      amt = ((abs)/90) ** 0.5
+    else 
+      amt = (((abs - 90))/90) ** 0.5
+    end
+    @t_1 *= 0.25 if abs > 170
+      
     @t_1 = amt
     @throttler2.act do 
       puts amt if @inspector
