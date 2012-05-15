@@ -3,7 +3,6 @@ class Ship
   attr_accessor :loc, :mouse_angle, :inspector, :turn_lock
   @@defTurn = 100
   @Hp=100
-  @t_1 = 1.0
   
   [:adjust_acceleration, :adjust_turn].each do |name|
     define_method name do 
@@ -21,7 +20,7 @@ class Ship
     @angle = SharedNum.new options[:angle]
     @image = img
     @angle_reader = nil
-    @my_engine = ShipEngine.new @angle, @vel, :turn => options[:turn]
+    @my_engine = ShipEngine.new @loc,@angle, @vel, :turn => options[:turn]
     @t_1 = 1.0
     @mouse_angle = SharedNum.new 0
     @team = options[:team]
@@ -69,7 +68,6 @@ class Ship
   
   def update 
     self.think
-    self.adjust_acceleration
     self.adjust_turn
     self.update_position
   end
@@ -78,39 +76,20 @@ class Ship
     if (@angle_reader)
       @mouse_angle.v,@diff = @angle_reader.read_data 
     end
-    normalize_t1 
-  end
-  
-  def adjust_acceleration
-    @accel.set(@vel.x*$delta,@vel.y*$delta)
+
   end
   
   def adjust_turn
-    abs = @diff.abs
-    amt = 0.0
-    if abs < 90
-      amt = ((abs)/90) ** 0.5
-    else 
-      amt = (((abs - 90))/90) ** 0.5
-    end
-    @t_1 *= 0.25 if abs > 170
-      
-    @t_1 = amt
-    @throttler2.act do 
-      puts amt if @inspector
-    end
+    normalize_t1 
   end
   
   def update_position
-    if not @turn_lock 
-      if @diff > 0
-        right @t_1 
-      else
-        left @t_1 
-      end
+    if @diff > 0
+      @my_engine.right @t_1 
+    else
+      @my_engine.left @t_1 
     end
-    @loc.x+=@accel.x
-    @loc.y+=@accel.y
+    @my_engine.update_position
   end
   
   def forward adj = 1.0
@@ -119,14 +98,6 @@ class Ship
   
   def breaks adj = 1.0
     @my_engine.breaks
-  end
-  
-  def left adj = 1.0
-    @my_engine.left adj
-  end
-  
-  def right adj = 1.0
-    @my_engine.right adj
   end
   
 end

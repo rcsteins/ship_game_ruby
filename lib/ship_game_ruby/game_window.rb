@@ -66,14 +66,6 @@ class GameWindow < Gosu::Window
   def handle_input
     @mouse_loc.set(mouse_x,mouse_y)
     
-    if self.button_down?(Gosu::KbA) or self.button_down?(Gosu::GpLeft)
-      @ships[:player].left
-    end
-    
-    if self.button_down?(Gosu::KbD) or self.button_down?(Gosu::GpRight)
-      @ships[:player].right
-    end
-    
     if self.button_down?(Gosu::KbW) or self.button_down?(Gosu::GpUp)
       @ships[:player].forward
     end
