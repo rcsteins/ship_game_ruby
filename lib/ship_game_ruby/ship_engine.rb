@@ -1,4 +1,5 @@
 class ShipEngine
+  attr_accessor :control_link
   
   def initialize(loc,angle,vel, opt={})
     @options = {:turn => 300}
@@ -9,6 +10,7 @@ class ShipEngine
     @vel = vel
     @loc=loc
     @vel_time = Coors.new(0,0)
+    @control_link
   end
   
   def forward adj = 1.0
