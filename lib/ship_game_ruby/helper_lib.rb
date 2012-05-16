@@ -21,10 +21,19 @@ class Coors
     @y += Gosu::offset_y(angle,amt)
   end
   
+  def scale factor
+    @x*= factor
+    @y*= factor
+  end
+  
   def add(other)
     @x += other.x
     @y += other.y
     self
+  end
+  
+  def len_square
+    @x * @x + @y * @y
   end
   
 end

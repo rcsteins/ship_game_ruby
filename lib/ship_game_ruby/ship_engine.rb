@@ -18,8 +18,9 @@ class ShipEngine
    @vel.y+=Gosu::offset_y(@angle.v,@speed)*$delta*adj
   end
   
-  def breaks adj = 1.0
-    @vel.ext -750*$delta
+  def break adj = 1.0
+    @vel.ext -250*$delta
+    @vel.scale 0.2 if @vel.len_square < 1
   end
   
   def left adj = 1.0

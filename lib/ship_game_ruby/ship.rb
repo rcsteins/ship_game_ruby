@@ -29,6 +29,7 @@ class Ship
     @throttler = Throttler.new 30
     @throttler2 = Throttler.new 30
     @control_struct = ShipControlStruct.new
+    @signal_handler = InputSignalHandler.new
   end
   
   def bind_to_mouse mouse
@@ -64,16 +65,19 @@ class Ship
   
   def update_position
     normalize_t1()
-    @my_engine.rotate(@t_1  *@control_struct.rotate )
+    @signal_handler.apply_signals(@my_engine)
+    @my_engine.rotate(@t_1  * @control_struct.rotate)
     @my_engine.update_position
   end
   
   def forward adj = 1.0
-    @my_engine.forward
+    #@my_engine.forward adj
+    @signal_handler.forward adj
   end
   
   def breaks adj = 1.0
-    @my_engine.breaks
+    #@my_engine.breaks adj
+    @signal_handler.brake adj
   end
   
 end
