@@ -33,6 +33,18 @@ class GameWindow < Gosu::Window
     @bullets = []
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)
     
+    def @bullets.update
+      self.compact!
+      self.each_with_index do |b,i| 
+        if b.enabled 
+          b.update 
+        else  
+          b.release
+          self[i]=nil    
+        end
+      end
+    end
+    
   end
   
   def initialize
@@ -57,17 +69,7 @@ class GameWindow < Gosu::Window
     handle_input
     @counter += 1
     @ships.each {|key,ship|ship.update }
-    
-    @bullets.compact!
-    @bullets.each_with_index  do |b,i| 
-      if b.enabled 
-        b.update 
-      else  
-        b.release
-        @bullets[i]=nil    
-      end
-    end
-    #@bullets.compact!
+    @bullets.update
   end
   
   def handle_input

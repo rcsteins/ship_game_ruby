@@ -1,9 +1,9 @@
 class Bullet
   attr_accessor :loc, :enabled
+  @@dmg = 10
+  @@time_limit = 1.4
   def Bullet.init_class image
     @@image = image
-    @@dmg = 10
-    @@time_limit = 1.4
   end
   
   #changing this so that bullet is initiazlied to disabled state

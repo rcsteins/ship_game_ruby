@@ -13,7 +13,6 @@ class BulletBuilder
 
   def create 
     @active_list << @free_list.next_free.re_init(@loc,@angle,@speed,:red)
-    #return Bullet.new(@loc,@angle,speed,:red)
   end
   
   def throttled_create
