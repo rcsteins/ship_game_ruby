@@ -9,15 +9,15 @@ class InputSignalHandler
   end
   
   def brake ammout
-    @signal_que << InputSignal.break(ammout)
+    @signal_que << InputSignal.new(:break, ammout)
   end
   
   def forward ammout
-    @signal_que << InputSignal.forward(ammout)
+    @signal_que << InputSignal.new(:forward,ammout)
   end
   
   def rotate ammout
-    @signal_que << InputSignal.rotate(ammout)
+    @signal_que << InputSignal.new(:rotate, ammout)
   end
   
   def apply_signals engine
@@ -29,17 +29,6 @@ end
 
 class InputSignal
   attr_accessor :symbol, :value
-  def self.forward ammout
-    return self.new :forward, ammout
-  end
-  
-  def self.break ammout
-    return self.new :break, ammout
-  end
-  
-  def self.rotate ammout
-    return self.new :rotate, ammout
-  end
 
   def initialize symbol, ammout 
     @symbol = symbol

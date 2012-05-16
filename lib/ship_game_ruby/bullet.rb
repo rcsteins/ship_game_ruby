@@ -1,12 +1,12 @@
 class Bullet
   attr_accessor :loc, :enabled
+  include Drawable
   @@dmg = 10
   @@time_limit = 1.4
   def Bullet.init_class image
     @@image = image
   end
   
-  #changing this so that bullet is initiazlied to disabled state
   def initialize 
     @enabled=false
     @time =0
@@ -14,6 +14,7 @@ class Bullet
     @angle = SharedNum.new(0)
     @loc = Coors.new(0,0)
     @z = 2
+    @image = @@image
   end
   
   def re_init start, angle, speed, team
@@ -26,10 +27,6 @@ class Bullet
     @vel.y+=Gosu::offset_y(@angle.v,speed)
     @team = team
     return self
-  end
-  
-  def draw
-    @@image.draw_rot(@loc.x,@loc.y,@z,@angle.v)
   end
   
   def update 

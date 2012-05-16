@@ -1,4 +1,4 @@
-$delta = 0
+$delta = 0.0016
 class GameWindow < Gosu::Window
   
   def load_images
@@ -92,6 +92,7 @@ class GameWindow < Gosu::Window
   def calculate_delta
     @this_frame = Gosu::milliseconds
     $delta = (@this_frame - @last_frame)/1000.0
+    #puts $delta
     @last_frame = @this_frame
   end
   
