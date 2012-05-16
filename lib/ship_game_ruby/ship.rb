@@ -52,6 +52,7 @@ class Ship
   end
   
   def update 
+    normalize_t1()
     self.think
     self.update_position
   end
@@ -60,13 +61,12 @@ class Ship
     if (@angle_reader)
       @mouse_angle.v,@diff = @angle_reader.read_data 
     end
-    @control_struct.rotate = @diff/(@diff.abs+0.0001)
+    @signal_handler.rotate(@t_1 * @diff/(@diff.abs+0.001))
   end
   
   def update_position
-    normalize_t1()
     @signal_handler.apply_signals(@my_engine)
-    @my_engine.rotate(@t_1  * @control_struct.rotate)
+   # @my_engine.rotate(@t_1  * @control_struct.rotate)
     @my_engine.update_position
   end
   

@@ -22,6 +22,13 @@ class GameWindow < Gosu::Window
     @ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180)
     @ships[:player].bind_to_mouse @mouse_loc
     @ships[:player].inspector = true
+    
+    @ships[:test_1].instance_eval do
+      def think
+        @signal_handler.forward 0.6
+        @signal_handler.rotate 0.5
+      end
+    end
 
     @bullets = []
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)
@@ -96,7 +103,7 @@ class GameWindow < Gosu::Window
   def button_down(id)
     close  if id == Gosu::KbEscape
     
-    @ships[:player].loc.set(400,400) if id == Gosu::KbQ
+    @ships.each {|key,ship| ship.loc.set(400,400)} if id == Gosu::KbQ
 
     @bullets.each { |t| t.loc.set(300,300)} if id == Gosu::KbI
     
