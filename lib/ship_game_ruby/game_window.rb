@@ -74,10 +74,10 @@ class GameWindow < Gosu::Window
     @ships.each {|key,ship|ship.update }
     @bullets.update
     if ($delta > $goal_delta)
-      puts "*****#{$delta}*****"
+      #puts "*****#{$delta}*****"
       $delayed_frames +=1 
     else
-      puts $delta
+      #puts $delta
       $not_delayed_frames +=1 
     end
   end
