@@ -1,4 +1,7 @@
-$delta = 0.0016
+$goal_delta = 0.016
+$delta = $goal_delta
+$delayed_frames = 0
+$not_delayed_frames = 0
 class GameWindow < Gosu::Window
   
   def load_images
@@ -49,7 +52,7 @@ class GameWindow < Gosu::Window
   
   def initialize
     
-    super(1200,700,false,16)
+    super(1200,700,false,Integer($goal_delta*1000))
     self.caption = "Ruby Ship Game"
     @font = Gosu::Font.new(self,Gosu::default_font_name,20)
     @counter = 0
@@ -70,6 +73,13 @@ class GameWindow < Gosu::Window
     @counter += 1
     @ships.each {|key,ship|ship.update }
     @bullets.update
+    if ($delta > $goal_delta)
+      puts "*****#{$delta}*****"
+      $delayed_frames +=1 
+    else
+      puts $delta
+      $not_delayed_frames +=1 
+    end
   end
   
   def handle_input
@@ -104,7 +114,12 @@ class GameWindow < Gosu::Window
   end
   
   def button_down(id)
-    close  if id == Gosu::KbEscape
+    if id == Gosu::KbEscape
+      puts "delayed frames: #{$delayed_frames} "
+      puts "not delayed frames: #{$not_delayed_frames} "
+      puts "percent missed:  #{Float($delayed_frames)/($not_delayed_frames + $delayed_frames)} "
+      close
+    end
     
     @ships.each {|key,ship| ship.loc.set(400,400)} if id == Gosu::KbQ
 
