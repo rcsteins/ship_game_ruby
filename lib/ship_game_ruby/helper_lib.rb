@@ -26,12 +26,6 @@ class Coors
     @y*= factor
   end
   
-  def add(other)
-    @x += other.x
-    @y += other.y
-    self
-  end
-  
   def len_square
     @x * @x + @y * @y
   end
