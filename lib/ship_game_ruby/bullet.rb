@@ -23,8 +23,7 @@ class Bullet
     @loc.set_from_other start
     @angle.v = angle.v
     @vel.set(0.0,0.0)
-    @vel.x+=Gosu::offset_x(@angle.v,speed)
-    @vel.y+=Gosu::offset_y(@angle.v,speed)
+    @vel.add_by_angle(angle,speed)
     @team = team
     return self
   end
