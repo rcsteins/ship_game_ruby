@@ -26,9 +26,9 @@ class Coors
     @y+=Gosu::offset_y(angle.v,magnitude)
   end
   
-  def add_with coor
-    @x+=coor.x
-    @y+=coor.y
+  def add_with coor, factor = 1
+    @x+=coor.x * factor
+    @y+=coor.y * factor
   end
   
   def scale factor

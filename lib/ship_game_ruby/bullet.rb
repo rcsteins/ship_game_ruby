@@ -33,8 +33,7 @@ class Bullet
     @enabled=false if @time > @@time_limit
     
     if @enabled;
-      @loc.x += @vel.x*$delta
-      @loc.y += @vel.y*$delta
+      @loc.add_with @vel, $delta
     end
     
   end

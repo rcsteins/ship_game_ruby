@@ -35,8 +35,7 @@ class ShipEngine
   end
   
   def update_position
-    @vel_time.set(@vel.x*$delta,@vel.y*$delta)
-    @loc.add_with @vel_time
+    @loc.add_with @vel, $delta
   end
   
 end
