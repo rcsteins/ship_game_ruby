@@ -36,17 +36,7 @@ class GameWindow < Gosu::Window
     @bullets = []
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)
     
-    def @bullets.update
-      self.compact!
-      self.each_with_index do |b,i| 
-        if b.enabled 
-          b.update 
-        else  
-          b.release
-          self[i]=nil    
-        end
-      end
-    end
+    Bullet.teach_update(@bullets)
     
   end
   
@@ -123,7 +113,7 @@ class GameWindow < Gosu::Window
     
     @ships.each {|key,ship| ship.loc.set(400,400)} if id == Gosu::KbQ
 
-    @bullets.each { |t| t.loc.set(300,300)} if id == Gosu::KbI
+    @bullets.each { |t| t.loc.set(300,300) unless t.nil? } if id == Gosu::KbI
     
     @bullet_builder.create if id == Gosu::MsLeft
     

@@ -7,6 +7,20 @@ class Bullet
     @@image = image
   end
   
+  def self.teach_update arr
+    def arr.update
+      self.compact!
+      self.each_with_index do |b,i| 
+        if b.enabled 
+          b.update 
+        else  
+          b.release
+          self[i]=nil    
+        end
+      end
+    end
+  end
+  
   def initialize 
     @enabled=false
     @time =0
