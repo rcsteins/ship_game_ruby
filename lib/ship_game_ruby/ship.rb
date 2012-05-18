@@ -16,7 +16,6 @@ class Ship
     @z = 1
     @loc = Coors.new(x,y)
     @vel = Coors.new(0,0)
-    @accel = Coors.new(0,0)
     @angle = SharedNum.new options[:angle]
     @image = img
     @my_engine = ShipEngine.new @loc,@angle, @vel, :turn => options[:turn]
@@ -46,7 +45,6 @@ class Ship
   
   def update_position
     @signal_handler.apply_signals(@my_engine)
-   # @my_engine.rotate(@t_1  * @control_struct.rotate)
     @my_engine.update_position
   end
   

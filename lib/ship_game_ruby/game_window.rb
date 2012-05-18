@@ -74,10 +74,10 @@ class GameWindow < Gosu::Window
     @ships.each {|key,ship|ship.update }
     @bullets.update
     if ($delta > $goal_delta)
-      #puts "*****#{$delta}*****"
+      ##puts "*****#{$delta}*****"
       $delayed_frames +=1 
     else
-      #puts $delta
+      ##puts $delta
       $not_delayed_frames +=1 
     end
   end
@@ -94,7 +94,7 @@ class GameWindow < Gosu::Window
     end
     
     if self.button_down?(Gosu::KbU) or self.button_down?(Gosu::MsRight)
-      @bullet_builder.throttled_create 
+      @bullet_builder.create 
     end
     
   end
@@ -117,7 +117,7 @@ class GameWindow < Gosu::Window
     if id == Gosu::KbEscape
       puts "delayed frames: #{$delayed_frames} "
       puts "not delayed frames: #{$not_delayed_frames} "
-      puts "percent missed:  #{Float($delayed_frames)/($not_delayed_frames + $delayed_frames)} "
+      puts "percent missed:  #{100*Float($delayed_frames)/($not_delayed_frames + $delayed_frames)} "
       close
     end
     
