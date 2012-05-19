@@ -12,7 +12,6 @@ class GameWindow < Gosu::Window
   end
   
   def prepare_game_pieces
-    
     Bullet.init_class(@bullet_img)
     @bullet_pool = FreeList.new(50,Bullet)
     
@@ -24,23 +23,14 @@ class GameWindow < Gosu::Window
     @ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180)
     @ships[:player].bind_to_mouse @mouse_loc
     @ships[:player].inspector = true
-    
-    @ships[:test_1].instance_eval do
-      def think
-        @signal_handler.forward 0.6
-        @signal_handler.rotate 0.5
-      end
-    end
 
     @bullets = []
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)
     
     Bullet.teach_update(@bullets)
-    
   end
   
-  def initialize
-    
+  def initialize   
     super(1200,700,false,Integer($goal_delta*1000))
     self.caption = "Ruby Ship Game"
     @mouse_loc = Coors.new(mouse_x, mouse_y)
@@ -51,7 +41,6 @@ class GameWindow < Gosu::Window
     @this_frame =Gosu::milliseconds
     @last_frame =Gosu::milliseconds
     $delta = 0.0
-    nil
   end
   
   def update
@@ -60,10 +49,8 @@ class GameWindow < Gosu::Window
     @ships.each {|key,ship|ship.update }
     @bullets.update
     if ($delta > $goal_delta)
-      ##puts "*****#{$delta}*****"
       $delayed_frames +=1 
     else
-      ##puts $delta
       $not_delayed_frames +=1 
     end
   end
@@ -71,15 +58,15 @@ class GameWindow < Gosu::Window
   def handle_input
     @mouse_loc.set(mouse_x,mouse_y)
     
-    if self.button_down?(Gosu::KbW) or self.button_down?(Gosu::GpUp)
+    if self.button_down?(Gosu::KbW) 
       @ships[:player].forward
     end
     
-    if self.button_down?(Gosu::KbC) or self.button_down?(Gosu::GpDown)
+    if self.button_down?(Gosu::KbC) 
       @ships[:player].breaks
     end
     
-    if self.button_down?(Gosu::KbU) or self.button_down?(Gosu::MsRight)
+    if self.button_down?(Gosu::MsRight)
       @bullet_builder.create 
     end
     
@@ -88,7 +75,6 @@ class GameWindow < Gosu::Window
   def calculate_delta
     @this_frame = Gosu::milliseconds
     $delta = (@this_frame - @last_frame)/1000.0
-    #puts $delta
     @last_frame = @this_frame
   end
   
