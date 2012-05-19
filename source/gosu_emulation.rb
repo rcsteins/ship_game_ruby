@@ -1,10 +1,10 @@
 module FakeGosu
   def self.offset_x(angle,ammount)
-    - Math.cos(angle*3.14/180)*ammount
+    Math.sin(angle*Math::PI/180)*ammount
   end
   
   def self.offset_y(angle,ammount)
-    - Math.sin(angle*3.14/180)*ammount
+    - Math.cos(angle*Math::PI/180)*ammount
   end
   
   def self.offset(a,b)
@@ -12,7 +12,7 @@ module FakeGosu
   end
   
   def self.angle_diff(a,b)
-    diff = a-b
+    diff = b-a
     if (diff < -180.0)
       diff+=360 until diff > -180.0
     elsif (diff >180.0)
