@@ -5,7 +5,6 @@ $not_delayed_frames = 0
 class GameWindow < Gosu::Window
   
   def load_images
-    @imager = ImagePreparer.new(self)
     @image1 = @imager.prepare("media/testShip2.bmp")
     @image2 = @imager.prepare("media/testShip3.bmp")
     @mouse_img = @imager.prepare("media/cursor.bmp")
@@ -44,10 +43,8 @@ class GameWindow < Gosu::Window
     
     super(1200,700,false,Integer($goal_delta*1000))
     self.caption = "Ruby Ship Game"
-    @font = Gosu::Font.new(self,Gosu::default_font_name,20)
-    @counter = 0
     @mouse_loc = Coors.new(mouse_x, mouse_y)
-    
+    @imager = ImagePreparer.new(self)
     load_images()
     prepare_game_pieces() #must do after load_images
     
@@ -60,7 +57,6 @@ class GameWindow < Gosu::Window
   def update
     calculate_delta
     handle_input
-    @counter += 1
     @ships.each {|key,ship|ship.update }
     @bullets.update
     if ($delta > $goal_delta)
