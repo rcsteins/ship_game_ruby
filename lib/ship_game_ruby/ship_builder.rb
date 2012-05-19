@@ -1,3 +1,4 @@
+#GOSU FREE
 class ShipBuilder
   attr_accessor :images
   

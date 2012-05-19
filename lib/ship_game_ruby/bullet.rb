@@ -1,3 +1,4 @@
+#GOSU FREE
 class Bullet
   attr_accessor :loc, :enabled
   include Drawable
@@ -49,8 +50,6 @@ class Bullet
     if @enabled;
       @loc.add_with @vel, $delta
     end
-    
   end
-
 end
 

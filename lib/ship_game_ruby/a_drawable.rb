@@ -1,5 +1,5 @@
+#GOSU NEUTRAL
 module Drawable
-  
   if RUBY_ENGINE == 'ruby'
     def draw
       @image.draw_rot(@loc.x,@loc.y,@z,@angle.v)

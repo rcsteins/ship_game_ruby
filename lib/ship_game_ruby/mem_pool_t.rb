@@ -1,5 +1,5 @@
+#GOSU FREE
 class FreeList
-  
   attr_accessor :arr,:max
   
   def initialize max, type
@@ -57,7 +57,6 @@ class FreeList
       nil
     end
   end
-  
 end
 
 module IdManaged

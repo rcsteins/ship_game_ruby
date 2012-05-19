@@ -1,3 +1,4 @@
+#GOSU FREE
 class BulletBuilder
   attr_accessor :speed,:throttling
   

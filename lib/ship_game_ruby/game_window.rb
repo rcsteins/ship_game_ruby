@@ -1,3 +1,4 @@
+#USING GOSU
 $goal_delta = 0.016
 $delta = $goal_delta
 $delayed_frames = 0

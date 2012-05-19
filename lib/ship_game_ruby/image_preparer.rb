@@ -1,3 +1,4 @@
+#GOSU NEUTRAL
 if RUBY_ENGINE == 'ruby'
   class ImagePreparer
     def initialize(window)

@@ -1,5 +1,5 @@
+#GOSU FREE
 class ShipEngine
-  
   def initialize(loc,angle,vel, opt={})
     @options = {:turn => 300}
     @options.merge!(opt)

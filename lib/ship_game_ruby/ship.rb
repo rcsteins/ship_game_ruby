@@ -1,3 +1,4 @@
+#GOSU FREE
 class Ship 
   attr_accessor :loc, :mouse_angle, :inspector, :turn_lock
   include Drawable

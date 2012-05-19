@@ -1,5 +1,5 @@
-class InputSignalHandler
-  
+#GOSU FREE
+class InputSignalHandler 
   def initialize
     @signal_que = []
   end
@@ -24,7 +24,6 @@ class InputSignalHandler
     @signal_que.each {|s| engine.send s.symbol, s.value}
     clear_que
   end
-  
 end
 
 class InputSignal
@@ -34,5 +33,4 @@ class InputSignal
     @symbol = symbol
     @value = ammout
   end  
-  
 end

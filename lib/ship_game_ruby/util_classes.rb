@@ -1,3 +1,4 @@
+#USING GOSU
 class Coors
   attr_accessor :x, :y
   
