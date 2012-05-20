@@ -39,8 +39,7 @@ class GameWindow < Gosu::Window
     load_images()
     prepare_game_pieces() #must do after load_images
     
-    @this_frame =Gosu::milliseconds
-    @last_frame =Gosu::milliseconds
+    init_gosu_milliseconds
     $delta = 0.0
   end
   
@@ -72,12 +71,6 @@ class GameWindow < Gosu::Window
     end
     
   end
-
-  def calculate_delta
-    @this_frame = Gosu::milliseconds
-    $delta = (@this_frame - @last_frame)/1000.0
-    @last_frame = @this_frame
-  end
   
   def draw
     @ships.each {|k,s|s.draw }
@@ -101,5 +94,16 @@ class GameWindow < Gosu::Window
     @bullet_builder.create if id == Gosu::MsLeft
     
   end 
+  
+  def calculate_delta dummy = 0
+    @this_frame = Gosu::milliseconds
+    $delta = (@this_frame - @last_frame)/1000.0
+    @last_frame = @this_frame
+  end
+  
+  def init_gosu_milliseconds
+    @this_frame =Gosu::milliseconds
+    @last_frame =Gosu::milliseconds
+  end
   
 end
