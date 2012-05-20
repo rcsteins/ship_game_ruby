@@ -17,14 +17,14 @@ class Coors
   end
   
   def ext amt
-    angle  = Gosu::angle(0,0,@x,@y)
+    angle  = Gosu.angle(0,0,@x,@y)
     @x += Gosu::offset_x(angle,amt)
     @y += Gosu::offset_y(angle,amt)
   end
   
   def add_by_angle angle, magnitude
-    @x+=Gosu::offset_x(angle.v,magnitude)
-    @y+=Gosu::offset_y(angle.v,magnitude)
+    @x+=Gosu.offset_x(angle.v,magnitude)
+    @y+=Gosu.offset_y(angle.v,magnitude)
   end
   
   def add_with coor, factor = 1
