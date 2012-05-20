@@ -1,4 +1,5 @@
 #USING GOSU
+$goal_delta = 0.0016
 class GameWindow < Gosu::Window
   
   def load_images
