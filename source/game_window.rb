@@ -1,6 +1,14 @@
 #USING GOSU
 $goal_delta = 0.0016
-class GameWindow < Gosu::Window
+if RUBY_ENGINE == 'ruby'
+  class GameWindow < Gosu::Window; end
+end
+
+class GameWindow 
+  
+  def self.create
+    return self.new
+  end
   
   def load_images
     @image1 = @imager.prepare("media/testShip2.bmp")
