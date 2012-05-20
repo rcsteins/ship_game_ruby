@@ -18,8 +18,8 @@ class Coors
   
   def ext amt
     angle  = Gosu.angle(0,0,@x,@y)
-    @x += Gosu::offset_x(angle,amt)
-    @y += Gosu::offset_y(angle,amt)
+    @x += Gosu.offset_x(angle,amt)
+    @y += Gosu.offset_y(angle,amt)
   end
   
   def add_by_angle angle, magnitude
