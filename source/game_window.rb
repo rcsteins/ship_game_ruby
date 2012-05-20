@@ -1,8 +1,4 @@
 #USING GOSU
-$goal_delta = 0.016
-$delta = $goal_delta
-$delayed_frames = 0
-$not_delayed_frames = 0
 class GameWindow < Gosu::Window
   
   def load_images
@@ -52,17 +48,9 @@ class GameWindow < Gosu::Window
   
   def handle_input
     @mouse_loc.set(mouse_x,mouse_y)   
-    if self.button_down?(Gosu::KbW) 
-      @ships[:player].forward
-    end
-    
-    if self.button_down?(Gosu::KbC) 
-      @ships[:player].breaks
-    end
-    
-    if self.button_down?(Gosu::MsRight)
-      @bullet_builder.create 
-    end   
+    @ships[:player].forward if self.button_down?(Gosu::KbW)   
+    @ships[:player].breaks if self.button_down?(Gosu::KbC)    
+    @bullet_builder.create if self.button_down?(Gosu::MsRight)
   end
   
   def draw
