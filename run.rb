@@ -9,6 +9,12 @@ require 'gosu'
 root_directory = File.join(File.dirname(__FILE__), 'source')
 Dir["#{root_directory}/*.rb"].each {|file| require file }
 
+if RUBY_ENGINE == 'ruby'
+  GLib = Gosu
+elsif RUBY_ENGINE == 'jruby'
+  GLib = FGosu
+end
+
 if __FILE__ == $0
   window = GameWindow.new
   window.show
