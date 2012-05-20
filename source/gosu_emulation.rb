@@ -21,9 +21,7 @@ module FGosu
     return diff
   end
   
-  def FGosu.angle a,b,x,y ##a,b are just for matching the interface
-    x,y = y,x
-    a,b = b,a
+  def FGosu.angle b,a,y,x ##a,b are just for matching the interface
     x=x-a
     y=y-b
     return 90 if (x==0 && y > 0)
