@@ -23,6 +23,9 @@ module FGosu
   
   def FGosu.angle a,b,x,y ##a,b are just for matching the interface
     x,y = y,x
+    a,b = b,a
+    x=x-a
+    y=y-b
     return 90 if (x==0 && y > 0)
     return 270 if (x==0 && y < 0)
     
