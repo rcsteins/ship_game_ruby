@@ -48,16 +48,10 @@ class GameWindow < Gosu::Window
     handle_input
     @ships.each {|key,ship|ship.update }
     @bullets.update
-    if ($delta > $goal_delta)
-      $delayed_frames +=1 
-    else
-      $not_delayed_frames +=1 
-    end
   end
   
   def handle_input
-    @mouse_loc.set(mouse_x,mouse_y)
-    
+    @mouse_loc.set(mouse_x,mouse_y)   
     if self.button_down?(Gosu::KbW) 
       @ships[:player].forward
     end
@@ -68,8 +62,7 @@ class GameWindow < Gosu::Window
     
     if self.button_down?(Gosu::MsRight)
       @bullet_builder.create 
-    end
-    
+    end   
   end
   
   def draw
@@ -80,19 +73,10 @@ class GameWindow < Gosu::Window
   end
   
   def button_down(id)
-    if id == Gosu::KbEscape
-      puts "delayed frames: #{$delayed_frames} "
-      puts "not delayed frames: #{$not_delayed_frames} "
-      puts "percent missed:  #{100*Float($delayed_frames)/($not_delayed_frames + $delayed_frames)} "
-      close
-    end
-    
+    close if id == Gosu::KbEscape
     @ships.each {|key,ship| ship.loc.set(400,400)} if id == Gosu::KbQ
-
-    @bullets.each { |t| t.loc.set(300,300) unless t.nil? } if id == Gosu::KbI
-    
-    @bullet_builder.create if id == Gosu::MsLeft
-    
+    @bullets.each { |t| t.loc.set(300,300) unless t.nil? } if id == Gosu::KbI    
+    @bullet_builder.create if id == Gosu::MsLeft   
   end 
   
   def calculate_delta dummy = 0
