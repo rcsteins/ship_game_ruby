@@ -1,4 +1,4 @@
-module FakeGosu
+module FGosu
   def self.offset_x(angle,ammount)
     Math.sin(angle*Math::PI/180)*ammount
   end
@@ -21,14 +21,22 @@ module FakeGosu
     return diff
   end
   
-  def self.angle a,b,x,y ##a,b are just for matching the interface
-    return 90 if (x == 0 && y > 0)
-    return 270 if (x == 0 && y < 0)
+  def FGosu.angle a,b,x,y ##a,b are just for matching the interface
+    x,y = y,x
+    return 90 if (x==0 && y > 0)
+    return 270 if (x==0 && y < 0)
     
-    calc = Math.atan(y/x)*180/3.14
-    return calc if ( x > 0 && y >0)
-    return 180 + calc if (x <0 && y >=0)
-    return 180 + calc if (x <0 && y <=0)
-    return 360 + calc if (x >0 && y <=0)
-  end
+    calc = - Math.atan(y/x) * 180/Math::PI
+    if (x < 0 && y >0)
+      calc
+    elsif (x > 0 && y >= 0)
+      180+calc
+    elsif (x >0 && y <= 0)
+      180+calc
+    elsif (x < 0 && y <=0 )
+      360 +calc
+    else
+      raise "impossible case reached"
+    end
+  end  
 end
