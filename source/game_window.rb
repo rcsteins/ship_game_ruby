@@ -69,7 +69,7 @@ elsif RUBY_ENGINE == 'jruby'
     end
     
     def handle_input
-      @mouse_loc.set_nc(@input.get_mouse_x,@input.get_mouse_y)
+      @mouse_loc.set_nc(@input.mouse_x,@input.mouse_y)
       close                             if @input.is_key_down(Input::KEY_ESCAPE)
       @ships[:player].forward           if @input.is_key_down(Input::KEY_W)
       @ships[:player].breaks            if @input.is_key_down(Input::KEY_C)
