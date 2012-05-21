@@ -6,7 +6,7 @@ module Drawable
     end
   elsif RUBY_ENGINE == 'jruby'
     def draw
-      @image.set_rotation(@angle.v-90.0)
+      @image.set_rotation(@angle.v)
       @image.draw(@loc.x-@image.get_width/2,@loc.y - @image.get_height/2)
     end
   end

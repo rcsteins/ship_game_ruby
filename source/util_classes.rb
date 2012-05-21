@@ -11,6 +11,11 @@ class Coors
     @y=Float(y)
   end
   
+  def set_nc x,y
+    @x=x
+    @y=y
+  end
+  
   def set_from_other to_copy
     @x= to_copy.x
     @y= to_copy.y
