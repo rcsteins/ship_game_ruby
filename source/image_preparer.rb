@@ -12,7 +12,7 @@ if RUBY_ENGINE == 'ruby'
   end
 elsif RUBY_ENGINE == 'jruby'
   class ImagePreparer
-    def initialize dummy_var #hackery to keep interface cosistent with gosu version
+    def initialize 
       @mask_color = Color.new(255,0,255) 
     end
   

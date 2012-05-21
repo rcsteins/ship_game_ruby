@@ -67,6 +67,7 @@ class Ship
        @t_1 = 1.0
     else
       @t_1 = @t_1/lim
+      @t_1 *= 0.0016/$delta
     end
   end
   
