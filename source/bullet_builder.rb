@@ -2,9 +2,10 @@
 class BulletBuilder
   attr_accessor :speed,:throttling
   
-  def initialize loc_link, angle_link, free_list, active_list
-     @loc = loc_link
-     @angle = angle_link
+  def initialize ship, free_list, active_list
+     @ship = ship
+     @loc = ship.body.loc
+     @angle = ship.aim_angle
      @free_list = free_list
      @speed = 545
      @throttling = 4

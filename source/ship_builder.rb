@@ -11,8 +11,7 @@ class ShipBuilder
   
   def new_ship img_key, options = {}
     ship = Ship.new @images[img_key], @options.merge(options)
-    launcher = BulletBuilder.new(ship.loc,ship.aim_angle,@pool,@active_list)
-    ship.add_launcher(launcher)
+    ship.add_launcher(@pool,@active_list)
     return ship
   end
 

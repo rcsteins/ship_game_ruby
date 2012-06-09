@@ -1,6 +1,6 @@
 #GOSU FREE
 class Ship 
-  attr_accessor :aim_angle, :inspector, :turn_lock, :launcher
+  attr_accessor :aim_angle, :inspector, :turn_lock, :launcher, :body
   StubMethods.do :adjust_acceleration, :adjust_turn
   include Drawable
   @@defTurn = 100
@@ -22,8 +22,8 @@ class Ship
     @signal_handler = InputSignalHandler.new
   end
   
-  def add_launcher launcher
-    @launcher = launcher
+  def add_launcher pool, active_list
+    @launcher = BulletBuilder.new(self,pool,active_list)
   end
   
   def bind_to_mouse mouse
