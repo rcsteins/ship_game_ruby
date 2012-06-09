@@ -1,0 +1,3 @@
+class ShipBasicControl
+  
+end
