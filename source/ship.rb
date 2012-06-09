@@ -24,7 +24,7 @@ class Ship
     options = {:x => 0,:y => 0, :angle => 0 , :team => :red, :turn => 300}.merge!(options_in)
     x,y = options[:x],options[:y]
     @body = GameBody.new(:location => Coors.new(x,y), :angle => SharedNum.new(options[:angle]),:image=>img,:vel => Coors.new(0,0),:ship=>self) 
-    @my_engine = ShipEngine.new @body.loc,@body.angle, @body.vel, :turn => options[:turn]
+    @my_engine = ShipEngine.new @body, :turn => options[:turn]
 
     @t_1 = 1.0
     @aim_angle = SharedNum.new 0.0
