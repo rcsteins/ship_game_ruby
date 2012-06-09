@@ -27,6 +27,10 @@ class Ship
     @signal_handler = InputSignalHandler.new
   end
   
+  def add_launcher launcher
+    @launcher = launcher
+  end
+  
   def bind_to_mouse mouse
     @angle_reader = AngleReader.new(@loc,mouse,@angle)
   end

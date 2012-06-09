@@ -102,12 +102,13 @@ class GameWindow
     @image2 = @imager.prepare("media/testShip3.bmp")
     @mouse_img = @imager.prepare("media/cursor.bmp")
     @bullet_img = @imager.prepare("media/bullet.bmp")
+    @target_img = @imager.prepare("media/target.bmp")
   end
   
   def prepare_game_pieces
     Bullet.init_class(@bullet_img)
     @bullet_pool = FreeList.new(50,Bullet)    
-    @builder = ShipBuilder.new
+    @builder = ShipBuilder.new(@bullet_pool)
     @builder.images[:player] = @image1
     @builder.images[:ai] = @image2
     @ships = {}
@@ -115,6 +116,7 @@ class GameWindow
     @ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180)
     @ships[:player].bind_to_mouse @mouse_loc
     @ships[:player].inspector = true
+    @ships[:target1] = Target.new(500,500,@target_img)
     @bullets = []
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)   
     Bullet.teach_update(@bullets)
