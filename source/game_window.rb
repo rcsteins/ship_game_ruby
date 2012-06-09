@@ -107,8 +107,9 @@ class GameWindow
   
   def prepare_game_pieces
     Bullet.init_class(@bullet_img)
-    @bullet_pool = FreeList.new(50,Bullet)    
-    @builder = ShipBuilder.new(@bullet_pool)
+    @bullet_pool = FreeList.new(50,Bullet) 
+    @bullets = []   
+    @builder = ShipBuilder.new(@bullet_pool,@bullets)
     @builder.images[:player] = @image1
     @builder.images[:ai] = @image2
     @ships = {}
@@ -118,9 +119,8 @@ class GameWindow
     @ships[:player].inspector = true
     @ships[:target2] = Target.new(100,200,@target_img)
     @ships[:target1] = Target.new(500,500,@target_img)
-    @ships[:target3] = Target.new(700,200,@target_img)
-    @bullets = []
-    @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)   
+    @ships[:target3] = Target.new(900,200,@target_img)
+    @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].aim_angle,@bullet_pool,@bullets)   
     Bullet.teach_update(@bullets)
   end
   

@@ -1,6 +1,6 @@
 #GOSU FREE
 class Ship 
-  attr_accessor :loc, :mouse_angle, :inspector, :turn_lock
+  attr_accessor :loc, :aim_angle, :inspector, :turn_lock
   include Drawable
   @@defTurn = 100
   @Hp=100
@@ -21,7 +21,7 @@ class Ship
     @image = img
     @my_engine = ShipEngine.new @loc,@angle, @vel, :turn => options[:turn]
     @t_1 = 1.0
-    @mouse_angle = SharedNum.new 0
+    @aim_angle = SharedNum.new 0
     @team = options[:team]
     @diff = 0 
     @signal_handler = InputSignalHandler.new
@@ -43,7 +43,7 @@ class Ship
   
   def think
     if @angle_reader
-      @mouse_angle.v,@diff = @angle_reader.read_data 
+      @aim_angle.v,@diff = @angle_reader.read_data 
     end
     @signal_handler.rotate(@t_1 * @diff/(@diff.abs+0.001))
   end
