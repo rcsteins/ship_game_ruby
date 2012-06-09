@@ -18,15 +18,15 @@ class ShipEngine
   end
   
   def left adj = 1.0
-    @body.angle.v-=@turn*$delta * adj
+    @body.angle-=@turn*$delta * adj
   end
   
   def right adj = 1.0
-    @body.angle.v+=@turn*$delta * adj 
+    @body.angle+=@turn*$delta * adj 
   end
   
   def rotate adj 
-    @body.angle.v+=@turn*$delta * adj 
+    @body.angle+=@turn*$delta * adj 
   end
   
   def update_position

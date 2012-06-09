@@ -1,18 +1,22 @@
 #GOSU NEUTRAL
 class AngleReader
-  def initialize(src,dest,angle_ref)
-    @src = src
+  def initialize(body,dest)
+    @body = body
     @dest = dest
-    @angle = angle_ref #assume angle follows SharedNum protocol
   end
   
   def read_absolute
-    return GLib.angle(@src.x,@src.y,@dest.x,@dest.y)
+    src = @body.loc
+    return GLib.angle(src.x,src.y,@dest.x,@dest.y)
+  end
+  
+  def diff
+    return GLib.angle_diff(@body.angle,abs)
   end
 
   def read_data
     abs = read_absolute
-    diff = GLib.angle_diff(@angle.v,abs)
+    diff = GLib.angle_diff(@body.angle,abs)
     return abs,diff
   end
     

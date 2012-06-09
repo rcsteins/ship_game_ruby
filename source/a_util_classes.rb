@@ -28,8 +28,8 @@ class Coors
   end
   
   def add_by_angle angle, magnitude
-    @x+=GLib.offset_x(angle.v,magnitude)
-    @y+=GLib.offset_y(angle.v,magnitude)
+    @x+=GLib.offset_x(angle,magnitude)
+    @y+=GLib.offset_y(angle,magnitude)
   end
   
   def add_with coor, factor = 1
@@ -46,13 +46,6 @@ class Coors
     @x * @x + @y * @y
   end
   
-end
-
-class SharedNum
-  attr_accessor :v
-  def initialize init_v=0
-    @v = init_v
-  end
 end
 
 class Throttler

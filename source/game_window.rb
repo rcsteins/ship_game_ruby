@@ -114,7 +114,7 @@ class GameWindow
     @builder.images[:ai] = @image2
     @ships = {}
     @ships[:player] = @builder.new_ship(:player)
-    @ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180)
+   # @ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180)
     @ships[:player].bind_to_mouse @mouse_loc
     @ships[:player].inspector = true
     @ships[:target2] = Target.new(100,200,@target_img)

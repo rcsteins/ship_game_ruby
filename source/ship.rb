@@ -8,10 +8,10 @@ class Ship
   def initialize(img, options_in = {}) 
     options = {:x => 0,:y => 0, :angle => 0 , :team => :red, :turn => 300}.merge!(options_in)
     x,y = options[:x],options[:y]
-    @body = GameBody.new(:location => Coors.new(x,y), :angle => SharedNum.new(options[:angle]),:image=>img,:vel => Coors.new(0,0),:ship=>self) 
+    @body = GameBody.new(:location => Coors.new(x,y), :angle => options[:angle],:image=>img,:vel => Coors.new(0,0),:ship=>self) 
     @my_engine = ShipEngine.new @body, :turn => options[:turn]
     @t_1 = 1.0
-    @aim_angle = SharedNum.new 0.0
+    @aim_angle = 0
     @team = options[:team]
     @diff = 0 
     @signal_handler = InputSignalHandler.new
@@ -22,7 +22,7 @@ class Ship
   end
   
   def bind_to_mouse mouse
-    @angle_reader = AngleReader.new(@body.loc,mouse,@body.angle)
+    @angle_reader = AngleReader.new(@body,mouse)
   end
   
   def update 
@@ -32,10 +32,10 @@ class Ship
   end
   
   def think
-    if @angle_reader
-      @aim_angle.v,@diff = @angle_reader.read_data 
-    end
-    @signal_handler.rotate(@t_1 * @diff/(@diff.abs+0.001))
+    @aim_angle,@diff = @angle_reader.read_data if @angle_reader
+
+    amt = @t_1 * @diff/(@diff.abs+0.001)
+    @signal_handler.rotate(amt)
   end
   
   def update_position
