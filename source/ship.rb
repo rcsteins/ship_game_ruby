@@ -6,10 +6,6 @@ class Ship
   @@defTurn = 100
   @Hp=100
   
-  def loc
-    @body.loc
-  end
-  
   def initialize(img, options_in = {}) 
     options = {:x => 0,:y => 0, :angle => 0 , :team => :red, :turn => 300}.merge!(options_in)
     x,y = options[:x],options[:y]
