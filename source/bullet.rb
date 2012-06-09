@@ -23,21 +23,20 @@ class Bullet
   end
   
   def initialize 
-    @enabled=false
-    @time =0
-    @vel = Coors.new(0.0,0.0)
-    @angle = SharedNum.new(0)
+    @body =GameBody.new()
+    @body.image = @@image
     @loc = Coors.new(0,0)
-    @z = 2
-    @image = @@image
+    @vel = Coors.new(0,0)
   end
   
   def re_init start, angle, speed, team
     @enabled = true
-    @time = 0
+    @time = 0 
     @loc.set_from_other start
-    @angle.v = angle.v
+    @body.loc = @loc
+    @body.angle = angle
     @vel.set(0.0,0.0)
+    @body.vel = @vel
     @vel.add_by_angle(angle,speed)
     @team = team
     return self
