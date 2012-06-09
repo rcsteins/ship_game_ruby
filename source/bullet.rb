@@ -8,20 +8,6 @@ class Bullet
     @@image = image
   end
   
-  def self.teach_update arr
-    def arr.update
-      self.compact!
-      self.each_with_index do |b,i| 
-        if b.enabled 
-          b.update 
-        else  
-          b.release
-          self[i]=nil    
-        end
-      end
-    end
-  end
-  
   def initialize 
     @loc = Coors.new(0,0)
     @vel = Coors.new(0,0)
@@ -43,10 +29,20 @@ class Bullet
   def update 
     @time += $delta;
     @enabled=false if @time > @@time_limit
-    
-    if @enabled;
-      @loc.add_with @vel, $delta
-    end
+    @loc.add_with @vel, $delta if @enabled
   end
 end
 
+def Bullet.teach_update arr
+  def arr.update
+    self.compact!
+    self.each_with_index do |b,i| 
+      if b.enabled 
+        b.update 
+      else  
+        b.release
+        self[i]=nil    
+      end
+    end
+  end
+end
