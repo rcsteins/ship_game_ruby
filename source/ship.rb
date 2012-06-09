@@ -1,6 +1,6 @@
 #GOSU FREE
 class Ship 
-  attr_accessor :loc, :aim_angle, :inspector, :turn_lock
+  attr_accessor :aim_angle, :inspector, :turn_lock
   include Drawable
   @@defTurn = 100
   @Hp=100
@@ -11,17 +11,24 @@ class Ship
     end
   end
   
+  def loc
+    return @body.loc
+  end
+  
+  def loc= v
+    @body.loc =v
+    nil
+  end
+  
   def initialize(img, options_in = {}) 
     options = {:x => 0,:y => 0, :angle => 0 , :team => :red, :turn => 300}.merge!(options_in)
     x,y = options[:x],options[:y]
-    @z = 1
-    @loc = Coors.new(x,y)
-    @vel = Coors.new(0,0)
-    @angle = SharedNum.new options[:angle]
+    @body = GameBody.new(:location => Coors.new(x,y), :angle => SharedNum.new(options[:angle]),:image=>img,:vel => Coors.new(0,0),:ship=>self) 
     @image = img
-    @my_engine = ShipEngine.new @loc,@angle, @vel, :turn => options[:turn]
+    @my_engine = ShipEngine.new @body.loc,@body.angle, @body.vel, :turn => options[:turn]
+
     @t_1 = 1.0
-    @aim_angle = SharedNum.new 0
+    @aim_angle = SharedNum.new 0.0
     @team = options[:team]
     @diff = 0 
     @signal_handler = InputSignalHandler.new
@@ -32,7 +39,7 @@ class Ship
   end
   
   def bind_to_mouse mouse
-    @angle_reader = AngleReader.new(@loc,mouse,@angle)
+    @angle_reader = AngleReader.new(@body.loc,mouse,@body.angle)
   end
   
   def update 

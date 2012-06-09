@@ -5,9 +5,8 @@ class Target
   include Drawable
   
   def initialize x,y,image
-    @loc = Coors.new(x,y)
+    @body = GameBody.new(:location => Coors.new(x,y),:angle => SharedNum.new(0),:image =>image )
     @image = image
-    @angle = SharedNum.new(0)
     @z = 1
   end
   

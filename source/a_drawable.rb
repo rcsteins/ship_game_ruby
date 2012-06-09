@@ -2,12 +2,12 @@
 module Drawable
   if RUBY_ENGINE == 'ruby'
     def draw
-      @image.draw_rot(@loc.x,@loc.y,@z,@angle.v)
+      @image.draw_rot(@body.loc.x,@body.loc.y,@body.z,@body.angle.v)
     end
   elsif RUBY_ENGINE == 'jruby'
     def draw
-      @image.rotation = @angle.v
-      @image.draw(@loc.x-@image.width/2,@loc.y - @image.height/2)
+      @image.rotation = @body.angle.v
+      @image.draw(@body.loc.x-@image.width/2,@body.loc.y - @image.height/2)
     end
   end
   
