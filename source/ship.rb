@@ -1,15 +1,10 @@
 #GOSU FREE
 class Ship 
   attr_accessor :aim_angle, :inspector, :turn_lock, :launcher
+  StubMethods.do :adjust_acceleration, :adjust_turn
   include Drawable
   @@defTurn = 100
   @Hp=100
-  
-  [:adjust_acceleration, :adjust_turn].each do |name|
-    define_method name do 
-      nil
-    end
-  end
   
   def loc
     @body.loc

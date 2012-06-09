@@ -68,5 +68,15 @@ class Throttler
   end
 end
 
+module StubMethods
+  def self.do *args
+    args.each do |name|
+      define_method name do 
+        nil
+      end
+    end
+  end
+end
+
 
 
