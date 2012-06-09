@@ -116,7 +116,9 @@ class GameWindow
     @ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180)
     @ships[:player].bind_to_mouse @mouse_loc
     @ships[:player].inspector = true
+    @ships[:target2] = Target.new(100,200,@target_img)
     @ships[:target1] = Target.new(500,500,@target_img)
+    @ships[:target3] = Target.new(700,200,@target_img)
     @bullets = []
     @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].mouse_angle,@bullet_pool,@bullets)   
     Bullet.teach_update(@bullets)

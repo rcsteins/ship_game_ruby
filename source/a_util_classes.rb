@@ -68,4 +68,8 @@ class Throttler
   end
 end
 
+class AnonHashKey
+  
+end
+
 
