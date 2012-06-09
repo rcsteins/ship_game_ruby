@@ -120,7 +120,7 @@ class GameWindow
     @ships[:target2] = Target.new(100,200,@target_img)
     @ships[:target1] = Target.new(500,500,@target_img)
     @ships[:target3] = Target.new(900,200,@target_img)
-    @bullet_builder = BulletBuilder.new(@ships[:player].loc,@ships[:player].aim_angle,@bullet_pool,@bullets)   
+    @bullet_builder = @ships[:player].launcher
     Bullet.teach_update(@bullets)
   end
   

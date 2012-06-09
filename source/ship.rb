@@ -1,6 +1,6 @@
 #GOSU FREE
 class Ship 
-  attr_accessor :aim_angle, :inspector, :turn_lock
+  attr_accessor :aim_angle, :inspector, :turn_lock, :launcher
   include Drawable
   @@defTurn = 100
   @Hp=100
@@ -12,12 +12,7 @@ class Ship
   end
   
   def loc
-    return @body.loc
-  end
-  
-  def loc= v
-    @body.loc =v
-    nil
+    @body.loc
   end
   
   def initialize(img, options_in = {}) 
@@ -25,7 +20,6 @@ class Ship
     x,y = options[:x],options[:y]
     @body = GameBody.new(:location => Coors.new(x,y), :angle => SharedNum.new(options[:angle]),:image=>img,:vel => Coors.new(0,0),:ship=>self) 
     @my_engine = ShipEngine.new @body, :turn => options[:turn]
-
     @t_1 = 1.0
     @aim_angle = SharedNum.new 0.0
     @team = options[:team]
