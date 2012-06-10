@@ -9,6 +9,5 @@ class GameBody
     @image = params[:image]
     @vel = params[:vel]
     @z=1
-  end
-  
+  end 
 end
