@@ -7,7 +7,7 @@ class Ship
   def initialize(img, options_in = {}) 
     options = {:x => 0,:y => 0, :angle => 0 , :team => :red, :turn => 300}.merge!(options_in)
     x,y = options[:x],options[:y]
-    @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img,:vel => Coors.new(0,0),:ship=>self) 
+    @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img) 
     @control = ShipBasicControl.new(:aim_angle => 0.0)
     @my_engine = ShipEngine.new(@body, :turn => options[:turn])
     @launcher = BulletBuilder.new(self,options[:pool],options[:active_list])
