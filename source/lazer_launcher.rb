@@ -1,7 +1,7 @@
 #GOSU FREE
 class BulletBuilder
   def initialize ship, free_list, active_list
-     @ship = ship
+     @control = ship.control
      @body= ship.body
      @free_list = free_list
      @speed = 545
@@ -11,7 +11,7 @@ class BulletBuilder
   end
 
   def create 
-    @active_list << @free_list.next_free.re_init(@body.loc,@ship.control.aim_angle,@speed,:red)
+    @active_list << @free_list.next_free.re_init(@body.loc,@control.aim_angle,@speed,:red)
   end
   
   def throttled_create
