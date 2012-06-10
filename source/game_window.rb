@@ -34,7 +34,7 @@ if RUBY_ENGINE == 'ruby'
       close                     if self.button_down?(Gosu::KbEscape)
       @ships[:player].signal_handler.forward(1)   if self.button_down?(Gosu::KbW)   
       @ships[:player].signal_handler.brake(1)   if self.button_down?(Gosu::KbC)    
-      @bullet_builder.throttled_create    if self.button_down?(Gosu::MsRight)
+      @ships[:player].launcher.throttled_create    if self.button_down?(Gosu::MsRight)
     end
     
     def draw 
@@ -73,7 +73,7 @@ elsif RUBY_ENGINE == 'jruby'
       close                             if @input.is_key_down(Input::KEY_ESCAPE)
       @ships[:player].signal_handler.forward(1)       if @input.is_key_down(Input::KEY_W)
       @ships[:player].signal_handler.brake(1)         if @input.is_key_down(Input::KEY_C)
-      @bullet_builder.throttled_create  if @input.is_mouse_button_down(Input::MOUSE_RIGHT_BUTTON)
+      @ships[:player].launcher.throttled_create  if @input.is_mouse_button_down(Input::MOUSE_RIGHT_BUTTON)
     end
     
     def render(container, graphics)
@@ -119,7 +119,6 @@ class GameWindow
     @ships[:target2] = Target.new(100,200,@target_img)
     @ships[:target1] = Target.new(500,500,@target_img)
     @ships[:target3] = Target.new(900,200,@target_img)
-    @bullet_builder = @ships[:player].launcher
     Bullet.teach_update(@bullets)
   end
   
