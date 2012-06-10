@@ -1,7 +1,6 @@
 #GOSU FREE
 class Ship 
   attr_accessor :aim_angle, :inspector, :turn_lock, :launcher, :body
-  StubMethods.do :adjust_acceleration, :adjust_turn
   include Drawable
   @Hp=100
   
