@@ -15,9 +15,6 @@ class Ship
     priv_init(options)
   end
   
-  def add_launcher pool, active_list
-  end
-  
   def bind_to_mouse mouse
     @angle_reader = AngleReader.new(@body,mouse)
   end
