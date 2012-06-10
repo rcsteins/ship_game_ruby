@@ -4,14 +4,11 @@ class ShipBuilder
   
   def initialize pool, active_list
     @images = {}
-    @options = {:x=>200,:y=>200,:angle =>0,:team=> :red }
-    @pool = pool
-    @active_list = active_list
+    @options = {:x=>200,:y=>200,:angle =>0,:team=> :red,:pool => pool,:active_list => active_list }
   end
   
   def new_ship img_key, options = {}
     ship = Ship.new @images[img_key], @options.merge(options)
-    ship.add_launcher(@pool,@active_list)
     return ship
   end
 

@@ -14,10 +14,10 @@ class Ship
     @t_1 = 1.0
     @diff = 0
     @team = options[:team]
+    @launcher = BulletBuilder.new(self,options[:pool],options[:active_list])
   end
   
   def add_launcher pool, active_list
-    @launcher = BulletBuilder.new(self,pool,active_list)
   end
   
   def bind_to_mouse mouse
