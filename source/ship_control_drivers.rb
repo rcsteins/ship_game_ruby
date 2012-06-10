@@ -1,6 +1,6 @@
-class ShipBasicControl
+class ShipControlDrivers
   attr_accessor :aim_angle,:aim_target, :move_angle,:move_target, :diff
-  @@def_coors = Coors.new(500,500)
+  @@def_coors = Coors.new(0,0)
   
   def initialize params = {}
     @aim_angle =  params[:aim_angle] || 0.0

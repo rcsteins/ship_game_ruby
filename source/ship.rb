@@ -10,9 +10,9 @@ class Ship
     @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img) 
     @my_engine = ShipEngine.new(@body, :turn => options[:turn])
     if (options[:player_control])
-      @control = ShipBasicControl.new(:body => @body, :target=>options[:player_control])
+      @control = ShipControlDrivers.new(:body => @body, :target=>options[:player_control])
     else
-      @control = ShipBasicControl.new(:body => @body)
+      @control = ShipControlDrivers.new(:body => @body, :target=>options[:db_target])
     end
     @launcher = BulletBuilder.new(self,options[:pool],options[:active_list])
     priv_init(options)
