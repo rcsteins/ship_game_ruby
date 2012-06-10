@@ -1,6 +1,6 @@
 #GOSU FREE
 class Ship 
-  attr_accessor :launcher, :body, :control
+  attr_accessor :launcher, :body, :control, :signal_handler
   include Drawable
   @Hp=100
   
@@ -33,14 +33,6 @@ class Ship
   def update_position
     @signal_handler.apply_signals(@my_engine)
     @my_engine.update_position
-  end
-  
-  def forward adj = 1.0
-    @signal_handler.forward adj
-  end
-  
-  def breaks adj = 1.0
-    @signal_handler.brake adj
   end
   
   private 

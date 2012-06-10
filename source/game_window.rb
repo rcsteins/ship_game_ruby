@@ -32,8 +32,8 @@ if RUBY_ENGINE == 'ruby'
     def handle_input
       @mouse_loc.set(mouse_x,mouse_y)   
       close                     if self.button_down?(Gosu::KbEscape)
-      @ships[:player].forward   if self.button_down?(Gosu::KbW)   
-      @ships[:player].breaks    if self.button_down?(Gosu::KbC)    
+      @ships[:player].signal_handler.forward(1)   if self.button_down?(Gosu::KbW)   
+      @ships[:player].signal_handler.brake(1)   if self.button_down?(Gosu::KbC)    
       @bullet_builder.throttled_create    if self.button_down?(Gosu::MsRight)
     end
     
@@ -71,8 +71,8 @@ elsif RUBY_ENGINE == 'jruby'
     def handle_input
       @mouse_loc.set_nc(@input.mouse_x,@input.mouse_y)
       close                             if @input.is_key_down(Input::KEY_ESCAPE)
-      @ships[:player].forward           if @input.is_key_down(Input::KEY_W)
-      @ships[:player].breaks            if @input.is_key_down(Input::KEY_C)
+      @ships[:player].signal_handler.forward(1)       if @input.is_key_down(Input::KEY_W)
+      @ships[:player].signal_handler.brake(1)         if @input.is_key_down(Input::KEY_C)
       @bullet_builder.throttled_create  if @input.is_mouse_button_down(Input::MOUSE_RIGHT_BUTTON)
     end
     
