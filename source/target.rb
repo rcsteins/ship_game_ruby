@@ -1,5 +1,5 @@
 $: << '.'
-require 'source/a_util_classes.rb'
+require 'source/a_util.rb'
 
 class Target
   include Drawable

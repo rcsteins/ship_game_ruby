@@ -90,7 +90,6 @@ elsif RUBY_ENGINE == 'jruby'
     def close
       @container.exit
     end
-    
   end
   
 end
