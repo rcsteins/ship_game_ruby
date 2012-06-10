@@ -1,6 +1,6 @@
 #GOSU FREE
 class Ship 
-  attr_accessor :aim_angle, :inspector, :turn_lock, :launcher, :body
+  attr_accessor :launcher, :body, :control
   include Drawable
   @Hp=100
   
@@ -31,7 +31,7 @@ class Ship
   end
   
   def think
-    @aim_angle,@diff = @angle_reader.read_data if @angle_reader
+    @control.aim_angle,@diff = @angle_reader.read_data if @angle_reader
     amt = @t_1 * @diff/(@diff.abs+0.001)
     @signal_handler.rotate(amt)
   end

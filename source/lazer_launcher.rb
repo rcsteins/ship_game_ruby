@@ -13,7 +13,7 @@ class BulletBuilder
   end
 
   def create 
-    @active_list << @free_list.next_free.re_init(@body.loc,@ship.aim_angle,@speed,:red)
+    @active_list << @free_list.next_free.re_init(@body.loc,@ship.control.aim_angle,@speed,:red)
   end
   
   def throttled_create
