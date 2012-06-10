@@ -10,5 +10,4 @@ module Drawable
       @body.image.draw(@body.loc.x-@image.width/2,@body.loc.y - @image.height/2)
     end
   end
-  
 end
