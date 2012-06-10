@@ -9,9 +9,8 @@ class Bullet
   end
   
   def initialize 
-    @loc = Coors.new(0,0)
     @vel = Coors.new(0,0)
-    @body =GameBody.new(:location => @loc, :vel => @vel)
+    @body =GameBody.new(:vel => @vel)
     @body.image = @@image
   end
   
@@ -29,7 +28,7 @@ class Bullet
   def update 
     @time += $delta;
     @enabled=false if @time > @@time_limit
-    @loc.add_with @vel, $delta if @enabled
+    @body.loc.add_with @vel, $delta if @enabled
   end
 end
 

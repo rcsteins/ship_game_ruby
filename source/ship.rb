@@ -8,7 +8,7 @@ class Ship
   def initialize(img, options_in = {}) 
     options = {:x => 0,:y => 0, :angle => 0 , :team => :red, :turn => 300}.merge!(options_in)
     x,y = options[:x],options[:y]
-    @body = GameBody.new(:location => Coors.new(x,y), :angle => options[:angle],:image=>img,:vel => Coors.new(0,0),:ship=>self) 
+    @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img,:vel => Coors.new(0,0),:ship=>self) 
     @my_engine = ShipEngine.new @body, :turn => options[:turn]
     @t_1 = 1.0
     @aim_angle = 0
