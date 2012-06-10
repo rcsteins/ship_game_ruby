@@ -12,10 +12,7 @@ class Ship
     @my_engine = ShipEngine.new(@body, :turn => options[:turn])
     @launcher = BulletBuilder.new(self,options[:pool],options[:active_list])
     priv_init(options)
-  end
-  
-  def bind_to_mouse mouse
-    @angle_reader = AngleReader.new(@body,mouse)
+    @angle_reader = AngleReader.new(@body,options[:player_control]) if (options[:player_control])
   end
   
   def update 
