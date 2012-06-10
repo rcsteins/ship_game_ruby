@@ -11,10 +11,8 @@ class Ship
     @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img,:vel => Coors.new(0,0),:ship=>self) 
     @control = ShipBasicControl.new(:aim_angle => 0.0)
     @my_engine = ShipEngine.new(@body, :turn => options[:turn])
-    @t_1 = 1.0
-    @diff = 0
-    @team = options[:team]
     @launcher = BulletBuilder.new(self,options[:pool],options[:active_list])
+    priv_init(options)
   end
   
   def add_launcher pool, active_list
@@ -50,6 +48,12 @@ class Ship
   end
   
   private
+  
+  def priv_init options
+    @t_1 = 1.0
+    @diff = 0
+    @team = options[:team]
+  end
   
   def normalize_t1 
     @t_1 = @diff*@diff
