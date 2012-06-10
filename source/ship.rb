@@ -9,7 +9,7 @@ class Ship
     x,y = options[:x],options[:y]
     @signal_handler = InputSignalHandler.new
     @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img,:vel => Coors.new(0,0),:ship=>self) 
-    @control = ShipBasicControl.new(:aim_angle = > 0.0)
+    @control = ShipBasicControl.new(:aim_angle => 0.0)
     @my_engine = ShipEngine.new(@body, :turn => options[:turn])
     @t_1 = 1.0
     @diff = 0

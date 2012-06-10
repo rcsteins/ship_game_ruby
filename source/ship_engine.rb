@@ -1,8 +1,6 @@
 #GOSU FREE
 class ShipEngine
-  def initialize(body, opt={})
-    options = {:turn => 300}
-    options.merge!(opt)
+  def initialize(body, options={})
     @body = body
     @turn = options[:turn]
     @speed=500

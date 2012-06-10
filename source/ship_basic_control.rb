@@ -1,10 +1,10 @@
 class ShipBasicControl
   attr_accessor :aim_angle,:aim_target, :move_angle,:move_target
   def initialize params = {}
-    @aim_angle =  params(:aim_angle)
-    @aim_target = params(:aim_target)
-    @move_angle = params(:move_angle)
-    @move_target =params(:move_target)
+    @aim_angle =  params[:aim_angle]
+    @aim_target = params[:aim_target]
+    @move_angle = params[:move_angle]
+    @move_target =params[:move_target]
   end
   
   def set_both_angles v
