@@ -1,7 +1,5 @@
 #GOSU FREE
 class BulletBuilder
-  attr_accessor :speed,:throttling
-  
   def initialize ship, free_list, active_list
      @ship = ship
      @body= ship.body
@@ -21,5 +19,4 @@ class BulletBuilder
     @count = 0  if @count > @throttling
     create if @count == 0
   end
-
 end
