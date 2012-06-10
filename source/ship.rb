@@ -43,15 +43,13 @@ class Ship
     @signal_handler.brake adj
   end
   
-  private
-  
+  private 
   def priv_init options
     @t_1 = 1.0
     @diff = 0
     @team = options[:team]
     @signal_handler = InputSignalHandler.new
-  end
-  
+  end 
   def normalize_t1 
     @t_1 = @diff*@diff
     @diff_squared = @t_1
@@ -63,5 +61,4 @@ class Ship
       @t_1 *= 0.0016/$delta
     end
   end
-  
 end
