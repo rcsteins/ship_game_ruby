@@ -14,7 +14,6 @@ class ShipEngine
   
   def update_position
     calculate_difference
-    calculate_turn
     @controls.apply_commands
     @body.loc.add_with @body.vel, $delta
     # @t.act {
@@ -28,10 +27,6 @@ class ShipEngine
     normalize_t1
     amt = @t_1 * @diff/(@diff.abs+0.001)
     @controls.rotate(amt)
-  end
-  
-  def calculate_turn
-    
   end
   
   def forward adj 

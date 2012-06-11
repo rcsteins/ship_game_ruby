@@ -29,8 +29,6 @@ class Ship
   def think
     @control.update
     @ai.update if @ai
-    amt = @control.adjusted_rotation
-    #@t.act {puts "control diff #{@control.diff}"}
     @engine.goal_angle=@control.move_angle 
   end
   

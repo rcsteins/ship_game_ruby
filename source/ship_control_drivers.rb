@@ -23,24 +23,6 @@ class ShipControlDrivers
   def update
     @aim_angle, @diff = @angle_reader.read_data(@move_target)
     @move_angle = @aim_angle
-    normalize_t1()
-  end
-  
-  def adjusted_rotation
-    amt = @t_1 * @diff/(@diff.abs+0.001)
-    return amt;
-  end
-  
-  private
-  def normalize_t1 
-    @t_1 = @diff*@diff
-    lim =40
-    if @t_1 > lim
-       @t_1 = 1.0
-    else
-      @t_1 = @t_1/lim
-      @t_1 *= 0.0016/$delta
-    end
   end
   
 end
