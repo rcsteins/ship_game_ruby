@@ -1,31 +1,61 @@
 #GOSU FREE
 class ShipEngine
-  attr_accessor :controls
+  attr_accessor :controls, :goal_angle
   def initialize(body, options={})
     @body = body
     @turn = options[:turn]
     @speed=500
     @controls = ShipEngineControls.new(self)
+    @goal_angle = 0
+    @diff = 0
+    @t = Throttler.new(30)
+    @t_1=0
   end
   
   def update_position
+    calculate_difference
+    calculate_turn
     @controls.apply_commands
     @body.loc.add_with @body.vel, $delta
+    # @t.act {
+    #      puts " goal = #{@goal_angle}"
+    #      puts " diff = #{@diff}"
+    #    }
+  end
+  
+  def calculate_difference
+    @diff = GLib.angle_diff(@body.angle,@goal_angle)
+    normalize_t1
+    amt = @t_1 * @diff/(@diff.abs+0.001)
+    @controls.rotate(amt)
+  end
+  
+  def calculate_turn
+    
   end
   
   def forward adj 
    @body.vel.add_by_angle(@body.angle,@speed*$delta*adj)
   end
-  
   def brake adj 
     @body.vel.ext -250*$delta*adj 
     @body.vel.scale 0.2 if @body.vel.len_square < 1
   end
-  
   def rotate adj 
     @body.angle+=@turn*$delta * adj 
-  end
+  end 
   
+  private
+  def normalize_t1 
+    @t_1 = @diff*@diff
+    lim =40
+    if @t_1 > lim
+       @t_1 = 1.0
+    else
+      @t_1 = @t_1/lim
+      @t_1 *= 0.0016/$delta
+    end
+  end
 end
 
 class ShipEngineControls

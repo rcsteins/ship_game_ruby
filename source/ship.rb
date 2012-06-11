@@ -18,6 +18,7 @@ class Ship
     end
     @launcher = BulletBuilder.new(self,options[:pool],options[:active_list])
     priv_init(options)
+    @t = Throttler.new(30)
   end
   
   def update 
@@ -29,7 +30,8 @@ class Ship
     @control.update
     @ai.update if @ai
     amt = @control.adjusted_rotation
-    @engine.controls.rotate(amt)
+    #@t.act {puts "control diff #{@control.diff}"}
+    @engine.goal_angle=@control.move_angle 
   end
   
   def update_position
