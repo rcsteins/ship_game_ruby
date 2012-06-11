@@ -27,7 +27,7 @@ class ShipControlDrivers
   end
   
   def adjusted_rotation
-    amt = @t_1 * diff/(diff.abs+0.001)
+    amt = @t_1 * @diff/(@diff.abs+0.001)
     return amt;
   end
   
