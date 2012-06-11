@@ -1,4 +1,5 @@
 #GOSU FREE
+
 class Ship 
   attr_accessor :launcher, :body, :control, :signal_handler
   include Drawable
@@ -7,12 +8,14 @@ class Ship
   def initialize(img, options_in = {}) 
     options = {:x => 0,:y => 0, :angle => 0 , :team => :red, :turn => 300}.merge!(options_in)
     x,y = options[:x],options[:y]
+    @signal_handler = InputSignalHandler.new
     @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img) 
     @my_engine = ShipEngine.new(@body, :turn => options[:turn])
     if (options[:player_control])
       @control = ShipControlDrivers.new(:body => @body, :target=>options[:player_control])
     else
-      @control = ShipControlDrivers.new(:body => @body, :target=>options[:db_target])
+      @control = ShipControlDrivers.new(:body => @body)
+      @ai = FirstAIComp.new(@body, @control, @signal_handler, options[:db_target])
     end
     @launcher = BulletBuilder.new(self,options[:pool],options[:active_list])
     priv_init(options)
@@ -25,7 +28,8 @@ class Ship
   
   def think
     @control.update
-    amt = @control.adjusted_diff
+    @ai.update if @ai
+    amt = @control.adjusted_rotation
     @signal_handler.rotate(amt)
   end
   
@@ -37,7 +41,6 @@ class Ship
   private 
   def priv_init options
     @team = options[:team]
-    @signal_handler = InputSignalHandler.new
   end 
 
 end

@@ -42,8 +42,16 @@ class Coors
     @y*= factor
   end
   
+  def to_angle 
+    return GLib.angle(0,0,x,y)
+  end
+  
   def len_square
     @x * @x + @y * @y
+  end
+  
+  def dist_sqr_from other
+    return ((@x - other.x) ** 2) + ((@y - other.y) ** 2)
   end
   
 end
@@ -73,7 +81,7 @@ end
 
 class Target
   include Drawable
-  
+  attr_accessor :body
   def initialize x,y,image
     @body = GameBody.new(:x => x, :y => y,:image =>image)
     @z = 1
