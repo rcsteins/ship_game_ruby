@@ -2,12 +2,12 @@ class DataReader
   attr_accessor :aim_angle,:aim_target, :move_angle,:move_target, :diff
   @@def_coors = Coors.new(0,0)
   
-  def initialize params = {}
+  def initialize body, params = {}
     @aim_angle =  params[:aim_angle] || 0.0
     @move_angle = params[:move_angle] || 0.0
     @move_target =params[:target] || @@def_coors
     @aim_target = params[:aim_target] || params[:target] || @@def_coors
-    @angle_reader = AngleReader.new(params[:body])
+    @angle_reader = AngleReader.new(body)
     @diff = 0
     @t_1=0
   end

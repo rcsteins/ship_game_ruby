@@ -11,9 +11,9 @@ class Ship
     @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img) 
     @engine = ShipEngine.new(@body, :turn => options[:turn])
     if (options[:player_control])
-      @control = DataReader.new(:body => @body, :target=>options[:player_control])
+      @control = DataReader.new(@body, :target=>options[:player_control])
     else
-      @control = DataReader.new(:body => @body)
+      @control = DataReader.new(@body)
       @ai = FirstAIComp.new(@body, @control, @engine, options[:db_target])
     end
     @launcher = BulletBuilder.new(self,options[:pool],options[:active_list])
