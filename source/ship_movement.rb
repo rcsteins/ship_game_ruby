@@ -23,7 +23,7 @@ class ShipEngine
    @body.vel.add_by_angle(@body.angle,@speed*$delta*adj)
   end
   
-  def break adj 
+  def brake adj 
     @body.vel.ext -250*$delta*adj 
     @body.vel.scale 0.2 if @body.vel.len_square < 1
   end
@@ -52,7 +52,7 @@ class ShipEngineControls
   end
   
   def apply_commands
-    @engine.break(@brake)
+    @engine.brake(@brake)
     @engine.forward(@forward)
     @engine.rotate(@rotate)
     clear
