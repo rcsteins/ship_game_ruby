@@ -4,13 +4,18 @@ class ShipEngine
     @body = body
     @turn = options[:turn]
     @speed=500
+    @controls = ShipEngineControls.new(self)
   end
   
-  def forward adj = 1.0
+  def signal_forward v
+    
+  end
+  
+  def forward adj 
    @body.vel.add_by_angle(@body.angle,@speed*$delta*adj)
   end
   
-  def break adj = 1.0
+  def break adj 
     @body.vel.ext -250*$delta*adj 
     @body.vel.scale 0.2 if @body.vel.len_square < 1
   end
@@ -20,8 +25,30 @@ class ShipEngine
   end
   
   def update_position
+    #@controls.apply_commands
     @body.loc.add_with @body.vel, $delta
   end  
+end
+
+class ShipEngineControls
+  attr_accessor :brake,:forward,:rotate
+  def initialize engine
+    @engine = engine
+    clear
+  end
+  
+  def clear
+    @brake = 0.0
+    @forward = 0.0
+    @rotate = 0.0
+  end
+  
+  def apply_commands engine
+    @engine.break(@brake)
+    @engine.forward(@forward)
+    @engine.rotate(@rotate)
+    clear
+  end
 end
 
 class GameBody
