@@ -1,8 +1,8 @@
 class FirstAIComp
-  def initialize body, control, signal_handler, targets
+  def initialize body, control, engine, targets
     @control = control
     @targets = targets
-    @signal_handler = signal_handler
+    @engine = engine
     @current = 0
     @control.set_both_targets(@targets[@current])
     @body = body
@@ -22,11 +22,11 @@ class FirstAIComp
       bad_momentum = false
     end
     if bad_momentum 
-      @signal_handler.brake(1)
+      @engine.signal_brake(1)
     elsif abs_diff > 50
-      @signal_handler.brake(1)
+      @engine.signal_brake(1)
     elsif abs_diff < t=50 and speed_sqr < 250**2
-      @signal_handler.forward(1-abs_diff/t)
+      @engine.signal_forward(1-abs_diff/t)
     end
   end
   

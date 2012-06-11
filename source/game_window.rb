@@ -32,8 +32,8 @@ if RUBY_ENGINE == 'ruby'
     def handle_input
       @mouse_loc.set(mouse_x,mouse_y)   
       close                     if self.button_down?(Gosu::KbEscape)
-      @ships[:player].signal_handler.forward(1)   if self.button_down?(Gosu::KbW)   
-      @ships[:player].signal_handler.brake(1)   if self.button_down?(Gosu::KbC)    
+      @ships[:player].engine.signal_forward(1)    if self.button_down?(Gosu::KbW)   
+      @ships[:player].engine.signal_brake(1)   if self.button_down?(Gosu::KbC)    
       @ships[:player].launcher.throttled_create    if self.button_down?(Gosu::MsRight)
     end
     
@@ -71,8 +71,8 @@ elsif RUBY_ENGINE == 'jruby'
     def handle_input
       @mouse_loc.set_nc(@input.mouse_x,@input.mouse_y)
       close                             if @input.is_key_down(Input::KEY_ESCAPE)
-      @ships[:player].signal_handler.forward(1)       if @input.is_key_down(Input::KEY_W)
-      @ships[:player].signal_handler.brake(1)         if @input.is_key_down(Input::KEY_C)
+      @ships[:player].engine.signal_forward(1)       if @input.is_key_down(Input::KEY_W)
+      @ships[:player].engine.signal_brake(1)         if @input.is_key_down(Input::KEY_C)
       @ships[:player].launcher.throttled_create  if @input.is_mouse_button_down(Input::MOUSE_RIGHT_BUTTON)
     end
     
@@ -117,7 +117,7 @@ class GameWindow
     @ships[:target3] = Target.new(900,200,@target_img)
     targets = [@ships[:target1].body.loc,@ships[:target2].body.loc,@ships[:target3].body.loc]
     @ships[:player] = @builder.new_ship(:player,:player_control => @mouse_loc)
-    #@ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180, :db_target => targets)
+    @ships[:test_1] = @builder.new_ship(:ai,:x => 500, :y => 300, :angle => 180, :db_target => targets)
     Bullet.teach_update(@bullets)
   end
   

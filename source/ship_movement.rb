@@ -8,7 +8,15 @@ class ShipEngine
   end
   
   def signal_forward v
-    
+    @controls.forward=v
+  end
+  
+  def signal_brake v
+    @controls.brake=v
+  end
+  
+  def signal_rotate v
+    @controls.rotate=v
   end
   
   def forward adj 
@@ -25,7 +33,7 @@ class ShipEngine
   end
   
   def update_position
-    #@controls.apply_commands
+    @controls.apply_commands
     @body.loc.add_with @body.vel, $delta
   end  
 end
@@ -43,7 +51,7 @@ class ShipEngineControls
     @rotate = 0.0
   end
   
-  def apply_commands engine
+  def apply_commands
     @engine.break(@brake)
     @engine.forward(@forward)
     @engine.rotate(@rotate)
