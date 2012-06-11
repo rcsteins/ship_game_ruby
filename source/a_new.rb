@@ -31,7 +31,7 @@ class FirstAIComp
   end
   
   def rotate_target
-    if @current < 2
+    if @current < @targets.size-1
       @current+=1
     else
       @current = 0
