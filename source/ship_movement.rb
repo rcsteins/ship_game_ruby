@@ -15,14 +15,6 @@ class ShipEngine
     @body.vel.scale 0.2 if @body.vel.len_square < 1
   end
   
-  def left adj = 1.0
-    @body.angle-=@turn*$delta * adj
-  end
-  
-  def right adj = 1.0
-    @body.angle+=@turn*$delta * adj 
-  end
-  
   def rotate adj 
     @body.angle+=@turn*$delta * adj 
   end
