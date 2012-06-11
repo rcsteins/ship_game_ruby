@@ -1,5 +1,6 @@
 #GOSU FREE
 class ShipEngine
+  attr_accessor :controls
   def initialize(body, options={})
     @body = body
     @turn = options[:turn]
@@ -7,16 +8,9 @@ class ShipEngine
     @controls = ShipEngineControls.new(self)
   end
   
-  def signal_forward v
-    @controls.forward=v
-  end
-  
-  def signal_brake v
-    @controls.brake=v
-  end
-  
-  def signal_rotate v
-    @controls.rotate=v
+  def update_position
+    @controls.apply_commands
+    @body.loc.add_with @body.vel, $delta
   end
   
   def forward adj 
@@ -32,14 +26,9 @@ class ShipEngine
     @body.angle+=@turn*$delta * adj 
   end
   
-  def update_position
-    @controls.apply_commands
-    @body.loc.add_with @body.vel, $delta
-  end  
 end
 
 class ShipEngineControls
-  attr_accessor :brake,:forward,:rotate
   def initialize engine
     @engine = engine
     clear
@@ -49,6 +38,14 @@ class ShipEngineControls
     @brake = 0.0
     @forward = 0.0
     @rotate = 0.0
+  end
+  
+  this_class = self
+  [:forward, :brake, :rotate].each do |symbol|
+    ivar = ('@' + symbol.to_s).intern
+    this_class.send :define_method, symbol, do |val|
+      instance_variable_set(ivar,val)
+    end
   end
   
   def apply_commands

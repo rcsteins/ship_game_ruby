@@ -22,11 +22,11 @@ class FirstAIComp
       bad_momentum = false
     end
     if bad_momentum 
-      @engine.signal_brake(1)
+      @engine.controls.brake(1)
     elsif abs_diff > 50
-      @engine.signal_brake(1)
+      @engine.controls.brake(1)
     elsif abs_diff < t=50 and speed_sqr < 250**2
-      @engine.signal_forward(1-abs_diff/t)
+      @engine.controls.forward(1-abs_diff/t)
     end
   end
   

@@ -29,7 +29,7 @@ class Ship
     @control.update
     @ai.update if @ai
     amt = @control.adjusted_rotation
-    @engine.signal_rotate(amt)
+    @engine.controls.rotate(amt)
   end
   
   def update_position
