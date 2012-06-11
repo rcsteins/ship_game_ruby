@@ -1,36 +1,31 @@
 #GOSU FREE
 class InputSignalHandler 
   def initialize
-    @signal_que = []
+    clear
   end
   
-  def clear_que
-    @signal_que = []
+  def clear
+    @brake = 0.0
+    @forward = 0.0
+    @rotate = 0.0
   end
   
   def brake ammout
-    @signal_que << InputSignal.new(:break, ammout)
+    @brake = ammout
   end
   
   def forward ammout
-    @signal_que << InputSignal.new(:forward,ammout)
+    @forward = ammout
   end
   
   def rotate ammout
-    @signal_que << InputSignal.new(:rotate, ammout)
+    @rotate = ammout
   end
   
   def apply_signals engine
-    @signal_que.each {|s| engine.send s.symbol, s.value}
-    clear_que
+    engine.break(@brake)
+    engine.forward(@forward)
+    engine.rotate(@rotate)
+    clear
   end
-end
-
-class InputSignal
-  attr_accessor :symbol, :value
-
-  def initialize symbol, ammout 
-    @symbol = symbol
-    @value = ammout
-  end  
 end

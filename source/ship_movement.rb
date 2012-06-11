@@ -11,7 +11,7 @@ class ShipEngine
   end
   
   def break adj = 1.0
-    @body.vel.ext -250*$delta
+    @body.vel.ext -250*$delta*adj 
     @body.vel.scale 0.2 if @body.vel.len_square < 1
   end
   
