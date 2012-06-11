@@ -31,10 +31,12 @@ if RUBY_ENGINE == 'ruby'
     
     def handle_input
       @mouse_loc.set(mouse_x,mouse_y)   
-      close                     if self.button_down?(Gosu::KbEscape)
+      close                                         if self.button_down?(Gosu::KbEscape)
       @ships[:player].engine.controls.forward(1)    if self.button_down?(Gosu::KbW)   
-      @ships[:player].engine.controls.brake(1)   if self.button_down?(Gosu::KbC)    
-      @ships[:player].launcher.throttled_create    if self.button_down?(Gosu::MsRight)
+      @ships[:player].engine.controls.brake(1)      if self.button_down?(Gosu::KbC)    
+      @ships[:player].launcher.throttled_create     if self.button_down?(Gosu::MsRight)
+      @ships[:player].rotation_adj(-90.0)           if self.button_down?(Gosu::KbA)
+      @ships[:player].rotation_adj(90.0)            if self.button_down?(Gosu::KbD)
     end
     
     def draw 
@@ -71,9 +73,11 @@ elsif RUBY_ENGINE == 'jruby'
     def handle_input
       @mouse_loc.set_nc(@input.mouse_x,@input.mouse_y)
       close                             if @input.is_key_down(Input::KEY_ESCAPE)
-      @ships[:player].engine.controls.forward(1)       if @input.is_key_down(Input::KEY_W)
-      @ships[:player].engine.controls.brake(1)         if @input.is_key_down(Input::KEY_C)
-      @ships[:player].launcher.throttled_create  if @input.is_mouse_button_down(Input::MOUSE_RIGHT_BUTTON)
+      @ships[:player].engine.controls.forward(1)      if @input.is_key_down(Input::KEY_W)
+      @ships[:player].engine.controls.brake(1)        if @input.is_key_down(Input::KEY_C)
+      @ships[:player].rotation_adj(-25.0)             if @input.is_key_down(Input::KEY_A)
+      @ships[:player].rotation_adj(25.0)           if @input.is_key_down(Input::KEY_D)
+      @ships[:player].launcher.throttled_create     if @input.is_mouse_button_down(Input::MOUSE_RIGHT_BUTTON)
     end
     
     def render(container, graphics)

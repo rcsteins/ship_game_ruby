@@ -16,10 +16,6 @@ class ShipEngine
     calculate_difference
     @controls.apply_commands
     @body.loc.add_with @body.vel, $delta
-    # @t.act {
-    #      puts " goal = #{@goal_angle}"
-    #      puts " diff = #{@diff}"
-    #    }
   end
   
   def calculate_difference

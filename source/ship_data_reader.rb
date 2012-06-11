@@ -1,4 +1,4 @@
-class ShipControlDrivers
+class DataReader
   attr_accessor :aim_angle,:aim_target, :move_angle,:move_target, :diff
   @@def_coors = Coors.new(0,0)
   
