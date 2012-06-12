@@ -6,10 +6,10 @@ class Ship
   @Hp=100
   
   def initialize(img, options_in = {}) 
-    options = {:x => 0,:y => 0, :angle => 0 , :team => :red, :turn => 300}.merge!(options_in)
+    options = {:x => 0,:y => 0, :angle => 0 , :team => :red}.merge!(options_in)
     x,y = options[:x],options[:y]
     @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img) 
-    @engine = ShipEngine.new(@body, :turn => options[:turn])
+    @engine = ShipEngine.new(@body)
     if (options[:player_control])
       @control = DataReader.new(@body, :target=>options[:player_control])
     else

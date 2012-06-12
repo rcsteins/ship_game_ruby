@@ -8,8 +8,7 @@ class ShipBuilder
   end
   
   def new_ship img_key, options = {}
-    ship = Ship.new @images[img_key], @options.merge(options)
-    return ship
+    return Ship.new(@images[img_key], @options.merge(options))
   end
 
 end

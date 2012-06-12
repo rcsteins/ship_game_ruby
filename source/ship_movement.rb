@@ -1,11 +1,12 @@
 #GOSU FREE
 class ShipEngine
   attr_accessor :controls, :goal_angle
-  def initialize(body, options={})
+  def initialize(body, options_in={})
+    options = {:turn => 300, :top_speed =>225, :accel_rate=>500}.merge!(options_in)
     @body = body
     @turn = options[:turn]
-    @accel_rate=500
-    @top_speed = 225
+    @accel_rate=options[:accel_rate]
+    @top_speed = options[:top_speed]
     @controls = ShipEngineControls.new(self)
     @goal_angle = 0
     
