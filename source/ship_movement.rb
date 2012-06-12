@@ -2,11 +2,11 @@
 class ShipEngine
   attr_accessor :controls, :goal_angle
   def initialize(body, options_in={})
-    options = {:turn => 300, :top_speed =>225, :accel_rate=>500}.merge!(options_in)
+    options = {:turn => 300, :max_speed =>225, :accel_rate=>500}.merge!(options_in)
     @body = body
     @turn = options[:turn]
     @accel_rate=options[:accel_rate]
-    @top_speed = options[:top_speed]
+    @max_speed = options[:max_speed]
     @controls = ShipEngineControls.new(self)
     @goal_angle = 0
     
@@ -30,7 +30,7 @@ class ShipEngine
   
   def forward adj 
     vel = @body.vel
-    if vel.length < @top_speed
+    if vel.length < @max_speed
       vel.add_by_angle(@body.angle,@accel_rate*$delta*adj)
     else
       vel.reduce_add_by_angle(@body.angle,@accel_rate*$delta*adj)
