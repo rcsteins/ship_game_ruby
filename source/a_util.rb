@@ -32,11 +32,9 @@ class Coors
     @y+=GLib.offset_y(angle,magnitude)
   end
   
-  def reduce_and_add_with coor, factor = 1 
-    len = Math.sqrt(coor.len_square)
-    len *= factor
-    ext(-len)
-    add_with coor,factor
+  def reduce_add_by_angle angle,magnitude
+    ext(-magnitude)
+    add_by_angle(angle,magnitude)
   end
   
   def add_with coor, factor = 1
@@ -55,6 +53,10 @@ class Coors
   
   def len_square
     @x * @x + @y * @y
+  end
+  
+  def length
+    return Math.sqrt(@x * @x + @y * @y)
   end
   
   def dist_sqr_from other

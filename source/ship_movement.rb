@@ -4,9 +4,11 @@ class ShipEngine
   def initialize(body, options={})
     @body = body
     @turn = options[:turn]
-    @speed=500
+    @accel_rate=500
+    @top_speed = 225
     @controls = ShipEngineControls.new(self)
     @goal_angle = 0
+    
     @diff = 0
     @t = Throttler.new(30)
     @t_1=0
@@ -26,7 +28,12 @@ class ShipEngine
   end
   
   def forward adj 
-   @body.vel.add_by_angle(@body.angle,@speed*$delta*adj)
+    vel = @body.vel
+    if vel.length < @top_speed
+      vel.add_by_angle(@body.angle,@accel_rate*$delta*adj)
+    else
+      vel.reduce_add_by_angle(@body.angle,@accel_rate*$delta*adj)
+    end
   end
   def brake adj 
     @body.vel.ext -250*$delta*adj 
