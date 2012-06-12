@@ -6,7 +6,7 @@ class Ship
   @Hp=100
   
   def initialize(img, options_in = {}) 
-    options = {:x => 0,:y => 0, :angle => 0 , :team => :red}.merge!(options_in)
+    options = {:team => :red}.merge!(options_in)
     x,y = options[:x],options[:y]
     @body = GameBody.new(:x => x,:y => y, :angle => options[:angle],:image=>img) 
     @engine = ShipEngine.new(@body)
