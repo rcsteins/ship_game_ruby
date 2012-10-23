@@ -72,7 +72,7 @@ class ShipEngineControls
   this_class = self
   [:forward, :brake, :rotate].each do |symbol|
     ivar = ('@' + symbol.to_s).intern
-    this_class.send :define_method, symbol, do |val|
+    this_class.send :define_method, symbol do |val|
       instance_variable_set(ivar,val)
     end
   end
